@@ -1,9 +1,12 @@
 import { addBodyStatEntry } from './bodystats';
 import { addExercise, addExerciseEntry } from './exercises';
+import { clearDatabase } from './maintenance';
 import { updateProfile } from './profile';
 import { addProgram } from './programs';
 
 export default async function () {
+	await clearDatabase();
+
 	// PROFILE
 	await updateProfile({
 		name: 'Stephane',
@@ -58,9 +61,27 @@ export default async function () {
 		}),
 		addExerciseEntry({
 			exerciseId: ex1,
-			value: 35,
+			value: 30,
 			rpe: 7,
 			createdAt: new Date('2026-01-08').getTime()
+		}),
+		addExerciseEntry({
+			exerciseId: ex1,
+			value: 30,
+			rpe: 7,
+			createdAt: new Date('2026-01-11').getTime()
+		}),
+		addExerciseEntry({
+			exerciseId: ex1,
+			value: 30,
+			rpe: 7,
+			createdAt: new Date('2026-01-13').getTime()
+		}),
+		addExerciseEntry({
+			exerciseId: ex1,
+			value: 30,
+			rpe: 7,
+			createdAt: new Date('2026-01-15').getTime()
 		})
 	]);
 

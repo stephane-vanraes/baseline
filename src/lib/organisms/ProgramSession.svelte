@@ -1,49 +1,44 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { addExerciseEntry, getExercisesForProgram } from '$lib/db';
 	import type { Exercise, ExerciseEntry, Program } from '$lib/db/types';
-	import { addExerciseEntry } from '$lib/db';
-	import { getProgramExercises } from '$lib/utils/programs';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import { getSuffix } from '$lib/utils/exercise';
 
 	type Props = {
-		program: Program;
 		exercises: Exercise[];
-		onFinished: () => void;
+		program: Program;
+		onFinished: (entries: ExerciseEntry[]) => void;
 		onCancel?: () => void;
 	};
-	const { program, exercises, onFinished, onCancel }: Props = $props();
-
-	const programExercises = $derived(getProgramExercises(program, exercises));
+	const { exercises, program, onFinished, onCancel }: Props = $props();
 
 	async function handleSubmit(ev: SubmitEvent) {
 		ev.preventDefault();
 		const form = ev.currentTarget as HTMLFormElement;
 		const data = new FormData(form);
 
-		const entries: ExerciseEntry[] = programExercises.flatMap((exercise) => {
-			if (!exercise.id) return [];
+		const entries = exercises.map((exercise) => {
 			const rawValue = data.get(`${exercise.id}-value`);
 			const rawRpe = data.get(`${exercise.id}-rpe`);
-			return [
-				{
-					id: crypto.randomUUID(),
-					exerciseId: exercise.id,
-					value: Number(rawValue ?? exercise.currentValue),
-					rpe: Number(rawRpe ?? 7)
-				}
-			];
+			return {
+				id: crypto.randomUUID(),
+				exerciseId: exercise.id,
+				value: Number(rawValue ?? exercise.currentValue),
+				rpe: Number(rawRpe ?? 7)
+			};
 		});
 
-		await Promise.all(entries.map((entry) => addExerciseEntry(entry)));
+		//await Promise.all(entries.map(addExerciseEntry));
 
-		onFinished();
+		onFinished(entries);
 	}
 </script>
 
 <h2>{program.name}</h2>
 <form onsubmit={handleSubmit}>
-	{#each programExercises as exercise (exercise.id)}
+	{#each exercises as exercise (exercise.id)}
 		<Card vertical>
 			<strong>{exercise.name}</strong>
 			<div class="inputs">

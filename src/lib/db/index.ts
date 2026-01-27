@@ -9,7 +9,7 @@ export {
 	getRecentExerciseEntriesAll,
 	updateExercise
 } from './exercises';
-export { addProgram, allPrograms, getProgram } from './programs';
+export { addProgram, allPrograms, getProgram, getExercisesForProgram } from './programs';
 export { getProfile, updateProfile } from './profile';
 export { getOnboarding } from './onboarding';
 export { addBodyStatEntry, getRecentBodyStats } from './bodystats';
