@@ -6,7 +6,7 @@
 		unit?: string;
 		value?: number;
 	};
-	let { label, name, step = 1, unit, value = $bindable(0) }: Props = $props();
+	let { label, name, step = 0.5, unit, value = $bindable(0) }: Props = $props();
 </script>
 
 <label>
@@ -58,11 +58,5 @@
 		max-inline-size: 100%;
 		padding: 0.5rem 0.875rem;
 		text-transform: none;
-	}
-
-	.unit {
-		color: var(--color-text);
-		opacity: 0.6;
-		white-space: nowrap;
 	}
 </style>

@@ -10,7 +10,8 @@ export type Analysis = {
 	exercise: Exercise;
 	entry: ExerciseEntry;
 	history: {
-		rpe?: number;
+		rpe_decrease?: number;
+		rpe_increase?: number;
 	};
 };
 
@@ -22,14 +23,19 @@ function median(values: number[]) {
 	return sorted[Math.floor(sorted.length / 2)];
 }
 
-function getLast3Relevant(
+type Last3Mode = 'atOrAbove' | 'atOrBelow';
+
+function getLast3(
 	history: ExerciseEntry[],
-	currentValue: number
+	currentValue: number,
+	mode: Last3Mode
 ): { entries: ExerciseEntry[]; medianRpe?: number } {
 	const now = Date.now();
 	const last3 = history
 		.filter((item) => item.createdAt && now - item.createdAt <= ninetyDaysMs)
-		.filter((item) => item.value >= currentValue)
+		.filter((item) =>
+			mode === 'atOrAbove' ? item.value >= currentValue : item.value <= currentValue
+		)
 		.slice(0, 3);
 
 	const medianRpe = last3.length === 3 ? median(last3.map((i) => i.rpe)) : undefined;
@@ -64,6 +70,33 @@ export function getSuggestedIncrease(
 	return undefined;
 }
 
+export function getSuggestedDecrease(
+	exercise: Exercise,
+	entry: ExerciseEntry,
+	last3: ExerciseEntry[],
+	medianRpe?: number
+): number | undefined {
+	const c = exercise.currentValue;
+	const inc = exercise.increment;
+	const s = entry.value;
+	const r = entry.rpe;
+
+	console.log(c, inc, s, r);
+
+	if (s <= c && r >= 9) {
+		console.log(c - inc);
+		return c - inc;
+	}
+
+	if (last3.length < 3) return undefined;
+
+	if (medianRpe !== undefined && medianRpe >= 8) {
+		return c - inc;
+	}
+
+	return undefined;
+}
+
 export async function analyse(entry: ExerciseEntry): Promise<Analysis> {
 	const [exercise, _previous] = await Promise.all([
 		getExercise(entry.exerciseId),
@@ -76,20 +109,30 @@ export async function analyse(entry: ExerciseEntry): Promise<Analysis> {
 
 	const previous = _previous.filter((e) => e.id !== entry.id);
 
-	const { entries: last3, medianRpe } = getLast3Relevant(previous, exercise.currentValue);
-	const suggestIncrease = getSuggestedIncrease(exercise, entry, last3, medianRpe);
-	const suggestDecrease = entry.rpe >= 9.5;
+	const { entries: last3Increase, medianRpe: medianRpeIncrease } = getLast3(
+		previous,
+		exercise.currentValue,
+		'atOrAbove'
+	);
+	const { entries: last3Decrease, medianRpe: medianRpeDecrease } = getLast3(
+		previous,
+		exercise.currentValue,
+		'atOrBelow'
+	);
+	const suggestIncrease = getSuggestedIncrease(exercise, entry, last3Increase, medianRpeIncrease);
+	const suggestDecrease = getSuggestedDecrease(exercise, entry, last3Decrease, medianRpeDecrease);
 
 	return {
 		exercise,
 		entry,
 		history: {
-			rpe: medianRpe
+			rpe_decrease: medianRpeDecrease,
+			rpe_increase: medianRpeIncrease
 		},
 		suggestions: {
 			none: !suggestDecrease && !suggestIncrease,
 			increase: suggestIncrease,
-			decrease: suggestDecrease ? exercise.currentValue : undefined
+			decrease: suggestDecrease
 		}
 	};
 }

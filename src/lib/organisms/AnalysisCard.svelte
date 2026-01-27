@@ -34,20 +34,59 @@
 
 			<div>
 				<span>Recent RPE</span>
-				<strong>{history.rpe ?? '-'}</strong>
+				<strong>{history.rpe_increase ?? '-'}</strong>
 			</div>
 
 			<p>
-				Recent sessions indicate low relative effort. Suggested adjustment: +{formatExercise(
-					exercise.increment,
-					exercise.type
-				)}
+				Recent sessions indicate low relative effort. Suggested adjustment: <strong
+					>+{formatExercise(exercise.increment, exercise.type)}</strong
+				>
 			</p>
 
 			<NumberInput
 				label={exercise.type}
 				name={`${exercise.id}-value`}
 				value={suggestions.increase}
+				unit={getSuffix(exercise.type)}
+			/>
+			<button>Set</button>
+		</div>
+	</Card>
+{:else if suggestions.decrease}
+	<Card vertical>
+		<div class="summary">
+			<strong>{exercise.name}</strong>
+
+			<div>
+				<span>Current Value</span>
+				<strong>{formatExercise(exercise.currentValue, exercise.type)}</strong>
+			</div>
+
+			<div>
+				<span>Session Value</span>
+				<strong>{formatExercise(entry.value, exercise.type)}</strong>
+			</div>
+
+			<div>
+				<span>Session RPE</span>
+				<strong>{entry.rpe}</strong>
+			</div>
+
+			<div>
+				<span>Recent RPE</span>
+				<strong>{history.rpe_decrease ?? '-'}</strong>
+			</div>
+
+			<p>
+				Recent sessions indicate high relative effort. Suggested adjustment: <strong
+					>-{formatExercise(exercise.increment, exercise.type)}</strong
+				>
+			</p>
+
+			<NumberInput
+				label={exercise.type}
+				name={`${exercise.id}-value`}
+				value={suggestions.decrease}
 				unit={getSuffix(exercise.type)}
 			/>
 			<button>Set</button>
@@ -77,6 +116,10 @@
 				letter-spacing: 0.08em;
 				opacity: 0.7;
 			}
+		}
+
+		p {
+			padding-block-end: 1rem;
 		}
 
 		button {
