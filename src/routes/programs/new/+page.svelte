@@ -8,10 +8,12 @@
 
 	let { data } = $props();
 
+	let query = $state('');
+
 	const available = $derived(
-		(data.exercises ?? []).filter(
-			(exercise) => !selected.some((picked) => picked.id === exercise.id)
-		)
+		data.exercises
+			.filter((exercise) => !selected.some((picked) => picked.id === exercise.id))
+			.filter((exercise) => exercise.name.toLowerCase().includes(query.trim().toLowerCase()))
 	);
 	let selected = $state<Exercise[]>([]);
 
@@ -49,10 +51,11 @@
 				</button>
 			</li>
 		{:else}
-			<p>No exercises selected yet.</p>
+			<p>No exercises match your search criteria.</p>
 		{/each}
 	</ul>
 	<h2>Available exercises</h2>
+	<TextInput label="Filter exercises" name="exerciseFilter" bind:value={query} />
 	<ul>
 		{#each available as exercise (exercise.id)}
 			<li>

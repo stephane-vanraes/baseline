@@ -4,7 +4,7 @@ import { db } from './client';
 import type { ExerciseUpdater, Inserter } from './helpers';
 
 export function allExercises() {
-	return db.exercises?.toArray() ?? [];
+	return db.exercises?.toArray().then((items) => items.sort((a, b) => a.name.localeCompare(b.name))) ?? [];
 }
 
 export function getExercise(id: string) {
