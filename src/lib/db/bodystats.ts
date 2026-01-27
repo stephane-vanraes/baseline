@@ -5,8 +5,8 @@ import type { Inserter } from './helpers';
 export async function addBodyStatEntry(entry: Inserter<DB.BodyStatsEntry>) {
 	await db.bodystats.add({
 		id: crypto.randomUUID(),
-		createdAt: Date.now().toString(),
-		updatedAt: Date.now().toString(),
+		createdAt: Date.now(),
+		updatedAt: Date.now(),
 		...entry
 	});
 }

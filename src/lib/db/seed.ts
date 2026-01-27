@@ -17,9 +17,9 @@ export default async function () {
 	});
 
 	await Promise.all([
-		addBodyStatEntry({ waist: 107, weight: 97, createdAt: '2026-01-05' }),
-		addBodyStatEntry({ waist: 107, weight: 96, createdAt: '2026-01-12' }),
-		addBodyStatEntry({ waist: 107, weight: 95, createdAt: '2026-01-19' })
+		addBodyStatEntry({ waist: 107, weight: 97, createdAt: new Date('2026-01-05').getTime() }),
+		addBodyStatEntry({ waist: 107, weight: 96, createdAt: new Date('2026-01-12').getTime() }),
+		addBodyStatEntry({ waist: 107, weight: 95, createdAt: new Date('2026-01-19').getTime() })
 	]);
 
 	const [ex1, ex2, ex3] = await Promise.all([
@@ -54,13 +54,13 @@ export default async function () {
 			exerciseId: ex1,
 			value: 30,
 			rpe: 7,
-			createdAt: '2026-01-06'
+			createdAt: new Date('2026-01-06').getTime()
 		}),
 		addExerciseEntry({
 			exerciseId: ex1,
 			value: 35,
 			rpe: 7,
-			createdAt: '2026-01-08'
+			createdAt: new Date('2026-01-08').getTime()
 		})
 	]);
 

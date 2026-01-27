@@ -17,11 +17,11 @@
 	<Onboarding {...data.onboarding} />
 {:else}
 	{#if data.hasMeasurementsToday}
-		<Banner title="Measurements logged" body="You've already logged measurements today." />
+		<Banner title="Measurements logged" body="You've already logged measurements this week." />
 	{:else if hasEnteredMeasurements}
 		<Banner
 			title="Measurements saved"
-			body="You've logged new measurements for today."
+			body="You've logged new measurements for this week."
 			timeout={3000}
 		/>
 	{:else}

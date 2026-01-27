@@ -31,6 +31,12 @@
 	{:else if props.onAction}
 		<button onclick={props.onAction}>{props.action ?? ''}</button>
 	{/if}
+	<button
+		class="close"
+		onclick={() => {
+			hidden = true;
+		}}>&Cross;</button
+	>
 </div>
 
 <style>
@@ -41,6 +47,7 @@
 		display: grid;
 		font-size: 0.75rem;
 		padding: 1rem;
+		position: relative;
 	}
 	.hidden {
 		display: none;
@@ -58,5 +65,14 @@
 	button {
 		justify-self: end;
 		margin-block-start: 0.5rem;
+	}
+	.close {
+		background-color: transparent;
+		font-size: 1rem;
+		line-height: 12px;
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		inset: 0.25rem 0.25rem auto auto;
 	}
 </style>

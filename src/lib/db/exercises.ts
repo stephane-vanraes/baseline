@@ -15,8 +15,8 @@ export function addExercise(exercise: Inserter<DB.Exercise>) {
 	return db.exercises.add({
 		...exercise,
 		id: crypto.randomUUID(),
-		createdAt: Date.now().toString(),
-		updatedAt: Date.now().toString()
+		createdAt: Date.now(),
+		updatedAt: Date.now()
 	});
 }
 
@@ -24,7 +24,7 @@ export function updateExercise(id: string, exercise: ExerciseUpdater) {
 	return db.exercises
 		.update(id, {
 			...exercise,
-			updatedAt: Date.now().toString()
+			updatedAt: Date.now()
 		})
 		.then(Boolean);
 }
@@ -52,8 +52,8 @@ export async function addExerciseEntry(entry: Inserter<DB.ExerciseEntry>) {
 
 	await db.exerciseEntries.add({
 		id: crypto.randomUUID(),
-		createdAt: Date.now().toString(),
-		updatedAt: Date.now().toString(),
+		createdAt: Date.now(),
+		updatedAt: Date.now(),
 		...entry
 	});
 }

@@ -1,7 +1,7 @@
 export interface Base {
 	id: string;
-	createdAt?: string;
-	updatedAt?: string;
+	createdAt?: number;
+	updatedAt?: number;
 }
 
 export type ExerciseType = 'weight' | 'time' | 'distance';

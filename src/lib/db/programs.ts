@@ -14,7 +14,7 @@ export function addProgram(program: Inserter<DB.Program>) {
 	return db.programs.add({
 		...program,
 		id: crypto.randomUUID(),
-		createdAt: Date.now().toString(),
-		updatedAt: Date.now().toString()
+		createdAt: Date.now(),
+		updatedAt: Date.now()
 	});
 }

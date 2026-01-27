@@ -11,6 +11,6 @@ export async function updateProfile(profile: Inserter<DB.Profile>) {
 		...profile,
 		dob: new Date(profile.dob).toString(),
 		id: 'PROFILE',
-		updatedAt: Date.now().toString()
+		updatedAt: Date.now()
 	});
 }
