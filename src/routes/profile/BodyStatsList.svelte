@@ -1,5 +1,4 @@
 ﻿<script lang="ts">
-	import Trend from '$lib/components/Trend.svelte';
 	import type { BodyStatsEntry } from '$lib/db/types';
 	import { formatDateYMD } from '$lib/utils/date';
 
@@ -14,8 +13,8 @@
 		<thead>
 			<tr>
 				<th>Date</th>
-				<th>Weight</th>
-				<th>Waist</th>
+				<th>Weight (kg)</th>
+				<th>Waist (cm)</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,18 +22,8 @@
 				{@const next = entries[index + 1]}
 				<tr>
 					<td>{formatDateYMD(entry.createdAt)}</td>
-					<td>
-						<div>
-							<strong>{entry.weight}</strong>
-							<Trend current={entry.weight} prev={next?.weight} />
-						</div>
-					</td>
-					<td>
-						<div>
-							<strong>{entry.waist}</strong>
-							<Trend current={entry.waist} prev={next?.waist} />
-						</div>
-					</td>
+					<td>{entry.weight} </td>
+					<td>{entry.waist} </td>
 				</tr>
 			{/each}
 		</tbody>
@@ -59,7 +48,11 @@
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 		opacity: 0.7;
-		padding: 0 0 0.5rem 0.8rem;
+		padding: 0 0.5rem 0.8rem;
+
+		&:not(:first-child) {
+			text-align: center;
+		}
 	}
 
 	tbody tr {
@@ -73,10 +66,9 @@
 		color: var(--color-text);
 		border-top: 1px solid var(--color-accent-soft);
 
-		> div {
-			display: inline-flex;
-			gap: 0.5rem;
-			align-items: center;
+		&:not(:first-child) {
+			font-weight: 600;
+			text-align: center;
 		}
 	}
 

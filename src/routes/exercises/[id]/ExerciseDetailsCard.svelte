@@ -2,10 +2,11 @@
 	import type { Exercise, ExerciseEntry } from '$lib/db/types';
 	import { updateExercise } from '$lib/db';
 	import Card from '$lib/components/Card.svelte';
-	import { formatExercise } from '$lib/utils/exercise';
+	import { formatExercise, getSuffix } from '$lib/utils/exercise';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import { formatDateYMD } from '$lib/utils/date';
 	import Banner from '$lib/components/Banner.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	type Props = {
 		exercise: Exercise;
@@ -25,6 +26,13 @@
 		const currentValue = Number(rawValue ?? exercise.currentValue);
 		await updateExercise(exercise.id, { currentValue });
 		hasChangedValue = true;
+		invalidateAll();
+	}
+
+	async function changeToLatest() {
+		await updateExercise(exercise.id, { currentValue: latestEntry?.value });
+		hasChangedValue = true;
+		invalidateAll();
 	}
 </script>
 
@@ -36,35 +44,47 @@
 	/>
 {/if}
 
-<Card vertical>
+<Card>
 	<div class="stats">
-		<div>
-			<span>Initial value</span>
-			<strong>{formatExercise(exercise.initialValue, exercise.type)}</strong>
-		</div>
-		<div>
-			{#if latestEntry}
+		{#if latestEntry}
+			<div>
 				<span>Latest value ({formatDateYMD(latestEntry.createdAt)})</span>
 				<strong>{formatExercise(latestEntry.value, exercise.type)}</strong>
+			</div>
+			{#if latestEntry.value !== exercise.currentValue}
+				<button type="button" onclick={changeToLatest}>Set</button>
 			{/if}
-		</div>
+		{/if}
+		<form class="update" onsubmit={handleSubmit} id="form">
+			<NumberInput
+				label="Current value"
+				name="currentValue"
+				value={exercise.currentValue}
+				unit={getSuffix(exercise.type)}
+			/>
+		</form>
+		<button class="button" type="submit" form="form">Set</button>
 	</div>
-	<form class="update" onsubmit={handleSubmit}>
-		<NumberInput label="Current value" name="currentValue" value={exercise.currentValue} />
-		<button class="button" type="submit">Set</button>
-	</form>
 </Card>
 
 <style>
 	.stats {
+		align-items: end;
 		display: grid;
-		gap: 0.75rem;
-		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-	}
+		gap: 1rem;
+		grid-template-columns: 1fr max-content;
+		inline-size: 100%;
 
-	.stats div {
-		display: grid;
-		gap: 0.25rem;
+		> div,
+		form {
+			display: grid;
+			gap: 0.25rem;
+			grid-column: 1 / 2;
+		}
+
+		button {
+			grid-column: 2 / 3;
+		}
 	}
 
 	span {

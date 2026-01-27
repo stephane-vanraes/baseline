@@ -9,6 +9,7 @@ export function getProfile() {
 export async function updateProfile(profile: Inserter<DB.Profile>) {
 	await db.profile.upsert('PROFILE', {
 		...profile,
+		dob: new Date(profile.dob).toString(),
 		id: 'PROFILE',
 		updatedAt: Date.now().toString()
 	});

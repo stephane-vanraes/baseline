@@ -1,8 +1,7 @@
 <script lang="ts">
-	import Trend from '$lib/components/Trend.svelte';
 	import type { ExerciseEntry, ExerciseType } from '$lib/db/types';
 	import { formatDateYMD } from '$lib/utils/date';
-	import { formatExercise } from '$lib/utils/exercise';
+	import { getSuffix } from '$lib/utils/exercise';
 
 	const { entries = [], type }: { entries: ExerciseEntry[]; type: ExerciseType } = $props();
 </script>
@@ -15,21 +14,15 @@
 		<thead>
 			<tr>
 				<th>Date</th>
-				<th>Value</th>
+				<th>Value ({getSuffix(type)})</th>
 				<th>RPE</th>
 			</tr>
 		</thead>
 		<tbody>
-			{#each entries as entry, index (entry.id ?? entry.createdAt)}
-				{@const next = entries[index + 1]}
+			{#each entries as entry (entry.id ?? entry.createdAt)}
 				<tr>
 					<td>{formatDateYMD(entry.createdAt)}</td>
-					<td>
-						<div>
-							<strong>{formatExercise(entry.value, type)}</strong>
-							<Trend current={entry.value} prev={next?.value} />
-						</div>
-					</td>
+					<td>{entry.value} </td>
 					<td>{entry.rpe}</td>
 				</tr>
 			{/each}
@@ -50,7 +43,11 @@
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 		opacity: 0.7;
-		padding: 0 0 0.5rem 0.8rem;
+		padding: 0 0.5rem 0.8rem;
+
+		&:not(:first-child) {
+			text-align: center;
+		}
 	}
 
 	tbody tr {
@@ -64,10 +61,9 @@
 		color: var(--color-text);
 		border-top: 1px solid var(--color-accent-soft);
 
-		> div {
-			display: inline-flex;
-			gap: 0.5rem;
-			align-items: center;
+		&:not(:first-child) {
+			font-weight: 600;
+			text-align: center;
 		}
 	}
 

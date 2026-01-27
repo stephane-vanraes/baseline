@@ -6,7 +6,8 @@ export async function clearDatabase() {
 		db.exercises.clear(),
 		db.exerciseEntries.clear(),
 		db.programs.clear(),
-		db.bodystats.clear()
+		db.bodystats.clear(),
+		db.profile.clear()
 	]);
 }
 

@@ -50,14 +50,10 @@ export async function addExerciseEntry(entry: Inserter<DB.ExerciseEntry>) {
 	const ex = await getExercise(entry.exerciseId);
 	if (!ex?.id) throw 'Exercise not found';
 
-	if (entry.value > ex.currentValue) {
-		await updateExercise(ex.id, { currentValue: entry.value });
-	}
-
 	await db.exerciseEntries.add({
-		...entry,
 		id: crypto.randomUUID(),
 		createdAt: Date.now().toString(),
-		updatedAt: Date.now().toString()
+		updatedAt: Date.now().toString(),
+		...entry
 	});
 }

@@ -1,20 +1,27 @@
 <script lang="ts">
-	let {
-		label,
-		name,
-		step = 1,
-		value = $bindable(0)
-	} = $props<{
+	type Props = {
 		label: string;
 		name: string;
 		step?: number;
+		unit?: string;
 		value?: number;
-	}>();
+	};
+	let { label, name, step = 1, unit, value = $bindable(0) }: Props = $props();
 </script>
 
 <label>
-	<span>{label}</span>
-	<input type="number" {name} {step} bind:value />
+	<span>
+		{label}
+		{#if unit}
+			<small>({unit})</small>
+		{/if}
+	</span>
+	<div class="field">
+		<input type="number" {name} {step} bind:value />
+		{#if unit}
+			<span>{unit}</span>
+		{/if}
+	</div>
 </label>
 
 <style>
@@ -28,7 +35,17 @@
 	}
 
 	span {
+		align-items: baseline;
+		display: inline-flex;
+		gap: 0.35rem;
 		opacity: 0.7;
+	}
+
+	.field {
+		align-items: center;
+		display: grid;
+		gap: 0.5rem;
+		grid-template-columns: minmax(0, 1fr) auto;
 	}
 
 	input {
@@ -41,5 +58,11 @@
 		max-inline-size: 100%;
 		padding: 0.5rem 0.875rem;
 		text-transform: none;
+	}
+
+	.unit {
+		color: var(--color-text);
+		opacity: 0.6;
+		white-space: nowrap;
 	}
 </style>

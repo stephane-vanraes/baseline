@@ -34,7 +34,7 @@
 	};
 </script>
 
-<h1>Edit Profile</h1>
+<h1>New Profile</h1>
 
 <form method="POST" use:enhance={saveProfile}>
 	<TextInput label="Name" name="name" value={data.profile?.name} />
@@ -48,9 +48,19 @@
 			{ value: 'female', label: 'Female' }
 		]}
 	/>
-	<NumberInput label="Height" name="height" value={data.profile?.height} />
-	<NumberInput label="Weight" name="currentWeight" value={data.profile?.currentWeight} />
-	<NumberInput label="Waist" name="currentWaist" value={data.profile?.currentWaist} />
+	<NumberInput label="Height" name="height" value={data.profile?.height ?? 170} unit="cm" />
+	<NumberInput
+		label="Weight"
+		name="currentWeight"
+		value={data.profile?.currentWeight ?? 80}
+		unit="kg"
+	/>
+	<NumberInput
+		label="Waist"
+		name="currentWaist"
+		value={data.profile?.currentWaist ?? 90}
+		unit="cm"
+	/>
 	<button type="submit">Save</button>
 </form>
 

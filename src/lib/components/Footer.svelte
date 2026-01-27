@@ -17,6 +17,7 @@
 		border-block-start: 1px solid var(--color-accent);
 		box-shadow: var(--shadow);
 		padding: 1rem 1.5rem;
+		margin-block-start: 50dvh;
 		margin-inline: auto;
 		max-inline-size: 96ch;
 	}

@@ -6,12 +6,16 @@
 	import SelectInput from '$lib/components/forms/SelectInput.svelte';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import { resolve } from '$app/paths';
+	import { getSuffix } from '$lib/utils/exercise';
 
 	const typeOptions: { value: ExerciseType; label: string }[] = [
 		{ value: 'weight', label: 'Weight' },
 		{ value: 'time', label: 'Time' },
 		{ value: 'distance', label: 'Distance' }
 	];
+
+	let selectedType = $state(typeOptions[0].value);
+	const unit = $derived(getSuffix(selectedType));
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -38,8 +42,8 @@
 <h1>New exercise</h1>
 <form onsubmit={handleSubmit}>
 	<TextInput label="Name" name="name" />
-	<SelectInput label="Type" name="type" options={typeOptions} value={typeOptions[0].value} />
-	<NumberInput label="Initial value" name="initialValue" />
+	<SelectInput label="Type" name="type" options={typeOptions} bind:value={selectedType} />
+	<NumberInput label="Initial value" name="initialValue" value={30} {unit} />
 	<div class="buttons">
 		<button class="button" type="submit">Create exercise</button>
 		<a href={resolve('/exercises')} class="button danger">Cancel</a>

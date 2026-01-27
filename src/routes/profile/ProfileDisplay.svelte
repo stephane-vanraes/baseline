@@ -1,35 +1,27 @@
 <script lang="ts">
 	import type { Profile } from '$lib/db/types';
+	import { formatDateYMD } from '$lib/utils/date';
 
-	const { name, dob, height, initialWeight, initialWaist, currentWeight, currentWaist }: Profile =
-		$props();
+	const { name, dob, height, currentWeight, currentWaist }: Profile = $props();
 </script>
 
 <section>
 	<h1>{name}</h1>
 	<div>
 		<span>Date of Birth</span>
-		<strong>{dob}</strong>
+		<strong>{formatDateYMD(dob)}</strong>
 	</div>
 	<div>
 		<span>Height</span>
-		<strong>{height}</strong>
+		<strong>{height} cm</strong>
 	</div>
 	<div>
-		<span>Initial Weight</span>
-		<strong>{initialWeight}</strong>
+		<span>Weight</span>
+		<strong>{currentWeight} kg</strong>
 	</div>
 	<div>
-		<span>Current Weight</span>
-		<strong>{currentWeight}</strong>
-	</div>
-	<div>
-		<span>Initial Waist</span>
-		<strong>{initialWaist}</strong>
-	</div>
-	<div>
-		<span>Current Waist</span>
-		<strong>{currentWaist}</strong>
+		<span>Waist</span>
+		<strong>{currentWaist} cm</strong>
 	</div>
 </section>
 
