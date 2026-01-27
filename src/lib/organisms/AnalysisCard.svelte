@@ -3,8 +3,31 @@
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import { type Analysis } from '$lib/utils/analysis';
 	import { formatExercise, getSuffix } from '$lib/utils/exercise';
+	import { updateExercise } from '$lib/db';
+	import { invalidateAll } from '$app/navigation';
 
 	const { entry, exercise, suggestions, history }: Analysis = $props();
+
+	let increaseValue = $state(suggestions.increase ?? 0);
+	let decreaseValue = $state(suggestions.decrease ?? 0);
+
+	$effect(() => {
+		if (suggestions.increase !== undefined) {
+			increaseValue = suggestions.increase;
+		}
+	});
+
+	$effect(() => {
+		if (suggestions.decrease !== undefined) {
+			decreaseValue = suggestions.decrease;
+		}
+	});
+
+	async function applyValue(value: number | undefined) {
+		if (!exercise.id || value === undefined) return;
+		await updateExercise(exercise.id, { currentValue: value });
+		await invalidateAll();
+	}
 </script>
 
 {#if suggestions.none}
@@ -46,10 +69,10 @@
 			<NumberInput
 				label={exercise.type}
 				name={`${exercise.id}-value`}
-				value={suggestions.increase}
+				bind:value={increaseValue}
 				unit={getSuffix(exercise.type)}
 			/>
-			<button>Set</button>
+			<button type="button" onclick={() => applyValue(increaseValue)}>Set</button>
 		</div>
 	</Card>
 {:else if suggestions.decrease}
@@ -86,10 +109,10 @@
 			<NumberInput
 				label={exercise.type}
 				name={`${exercise.id}-value`}
-				value={suggestions.decrease}
+				bind:value={decreaseValue}
 				unit={getSuffix(exercise.type)}
 			/>
-			<button>Set</button>
+			<button type="button" onclick={() => applyValue(decreaseValue)}>Set</button>
 		</div>
 	</Card>
 {/if}

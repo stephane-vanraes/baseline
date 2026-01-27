@@ -30,7 +30,7 @@
 			};
 		});
 
-		//await Promise.all(entries.map(addExerciseEntry));
+		await Promise.all(entries.map(addExerciseEntry));
 
 		onFinished(entries);
 	}
