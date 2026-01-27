@@ -23,8 +23,8 @@
 <h1>New measurements</h1>
 <Card vertical>
 	<form onsubmit={handleSubmit}>
-		<NumberInput label="Weight" name="weight" />
-		<NumberInput label="Waist" name="waist" />
+		<NumberInput label="Weight" name="weight" unit="kg" />
+		<NumberInput label="Waist" name="waist" unit="cm" />
 		<button class="button" type="submit">Add measurements</button>
 	</form>
 </Card>

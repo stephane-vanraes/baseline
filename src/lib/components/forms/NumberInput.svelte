@@ -35,7 +35,7 @@
 	}
 
 	span {
-		align-items: baseline;
+		align-items: center;
 		display: inline-flex;
 		gap: 0.35rem;
 		opacity: 0.7;

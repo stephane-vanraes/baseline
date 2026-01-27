@@ -16,7 +16,7 @@
 {#if data.onboarding.required}
 	<Onboarding {...data.onboarding} />
 {:else}
-	{#if data.hasMeasurementsToday}
+	{#if data.hasMeasurementsThisWeek}
 		<Banner title="Measurements logged" body="You've already logged measurements this week." />
 	{:else if hasEnteredMeasurements}
 		<Banner
@@ -32,13 +32,11 @@
 		/>
 	{/if}
 
-	{#if hasCompletedProgram}
-		<Banner title="Session Saved" body="You registered a session" timeout={3000} />
-	{/if}
 	{#if data.hasExerciseToday}
 		<Banner title="Session already logged" body="You've registered exercises today." />
-	{/if}
-	{#if !selectedProgram}
+	{:else if hasCompletedProgram}
+		<Banner title="Session Saved" body="You registered a session" timeout={3000} />
+	{:else if !selectedProgram}
 		<ProgramPicker
 			programs={data.programs}
 			onSelect={(program) => {

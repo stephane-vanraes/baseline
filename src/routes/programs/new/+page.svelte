@@ -25,14 +25,12 @@
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
-		if (selected.length === 0) return;
 		const form = event.currentTarget as HTMLFormElement;
 		const data = new FormData(form);
 		const name = String(data.get('name') ?? '').trim();
 		if (!name) return;
 
 		const exerciseIds = selected.map((exercise) => exercise.id).filter(Boolean) as string[];
-		if (exerciseIds.length === 0) return;
 
 		const id = await addProgram({ name, exerciseIds });
 		await goto(resolve('/programs/[id]', { id }));

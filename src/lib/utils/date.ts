@@ -1,6 +1,7 @@
-export function formatDateYMD(value?: string) {
+export function formatDateYMD(value?: string | number) {
 	if (!value) return '';
-	let date = new Date(Number(value));
+	const numericValue = typeof value === 'number' ? value : Number(value);
+	let date = new Date(numericValue);
 	if (Number.isNaN(date.getTime())) {
 		date = new Date(value);
 	}
@@ -11,9 +12,10 @@ export function formatDateYMD(value?: string) {
 	return `${year}.${month}.${day}`;
 }
 
-export function isCurrentDay(value?: string) {
+export function isCurrentDay(value?: string | number) {
 	if (!value) return false;
-	let date = new Date(Number(value));
+	const numericValue = typeof value === 'number' ? value : Number(value);
+	let date = new Date(numericValue);
 	if (Number.isNaN(date.getTime())) {
 		date = new Date(value);
 	}
@@ -24,4 +26,26 @@ export function isCurrentDay(value?: string) {
 		date.getMonth() === now.getMonth() &&
 		date.getDate() === now.getDate()
 	);
+}
+
+export function isCurrentWeek(value?: string | number) {
+	if (!value) return false;
+	const numericValue = typeof value === 'number' ? value : Number(value);
+	let date = new Date(numericValue);
+	if (Number.isNaN(date.getTime())) {
+		date = new Date(value);
+	}
+	if (Number.isNaN(date.getTime())) return false;
+
+	const now = new Date();
+	const startOfWeek = new Date(now);
+	startOfWeek.setHours(0, 0, 0, 0);
+	const dayIndex = startOfWeek.getDay(); // 0 = Sunday
+	const daysSinceMonday = (dayIndex + 6) % 7;
+	startOfWeek.setDate(startOfWeek.getDate() - daysSinceMonday);
+
+	const endOfWeek = new Date(startOfWeek);
+	endOfWeek.setDate(endOfWeek.getDate() + 7);
+
+	return date >= startOfWeek && date < endOfWeek;
 }

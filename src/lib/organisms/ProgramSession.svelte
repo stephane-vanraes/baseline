@@ -4,6 +4,7 @@
 	import { getProgramExercises } from '$lib/utils/programs';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import Card from '$lib/components/Card.svelte';
+	import { getSuffix } from '$lib/utils/exercise';
 
 	type Props = {
 		program: Program;
@@ -26,6 +27,7 @@
 			const rawRpe = data.get(`${exercise.id}-rpe`);
 			return [
 				{
+					id: crypto.randomUUID(),
 					exerciseId: exercise.id,
 					value: Number(rawValue ?? exercise.currentValue),
 					rpe: Number(rawRpe ?? 7)
@@ -49,6 +51,7 @@
 					label={exercise.type}
 					name={`${exercise.id}-value`}
 					value={exercise.currentValue}
+					unit={getSuffix(exercise.type)}
 				/>
 				<NumberInput label="RPE" name={`${exercise.id}-rpe`} value={7} />
 			</div>
