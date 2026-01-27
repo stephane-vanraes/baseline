@@ -4,32 +4,37 @@
 	import { type Analysis } from '$lib/utils/analysis';
 	import { formatExercise, getSuffix } from '$lib/utils/exercise';
 
-	const { name, suggestIncrease, noSuggestions, current, session, type, id }: Analysis = $props();
+	const { entry, exercise, suggestions }: Analysis = $props();
 </script>
 
-{#if noSuggestions}
+{#if suggestions.none}
 	<Card>
-		<strong>{name}</strong>
+		<strong>{exercise.name}</strong>
 		<small>OK</small>
 	</Card>
-{:else if suggestIncrease}
+{:else if suggestions.increase}
 	<Card vertical>
 		<div class="summary">
-			<strong>{name}</strong>
+			<strong>{exercise.name}</strong>
 
 			<div>
 				<span>Current Value</span>
-				<strong>{formatExercise(current, type)}</strong>
+				<strong>{formatExercise(exercise.currentValue, exercise.type)}</strong>
 			</div>
 
 			<div>
 				<span>Session Value</span>
-				<strong>{formatExercise(session, type)}</strong>
+				<strong>{formatExercise(entry.value, exercise.type)}</strong>
 			</div>
 
 			<p>Looks like you're doing great,maybe increase the volume?</p>
 
-			<NumberInput label={type} name={`${id}-value`} value={session} unit={getSuffix(type)} />
+			<NumberInput
+				label={exercise.type}
+				name={`${exercise.id}-value`}
+				value={suggestions.increase}
+				unit={getSuffix(exercise.type)}
+			/>
 			<button>Set</button>
 		</div>
 	</Card>

@@ -1,15 +1,14 @@
 import { getExercise, getRecentExerciseEntries } from '$lib/db';
-import type { ExerciseEntry, ExerciseType } from '$lib/db/types';
+import type { Exercise, ExerciseEntry } from '$lib/db/types';
 
 export type Analysis = {
-	name: string;
-	suggestIncrease: boolean;
-	suggestDecrease: boolean;
-	noSuggestions: boolean;
-	id: string;
-	current: number;
-	session: number;
-	type: ExerciseType;
+	suggestions: {
+		none: boolean;
+		increase?: number;
+		decrease?: number;
+	};
+	exercise: Exercise;
+	entry: ExerciseEntry;
 };
 
 export async function analyse(entry: ExerciseEntry): Promise<Analysis> {
@@ -38,13 +37,12 @@ export async function analyse(entry: ExerciseEntry): Promise<Analysis> {
 	});
 
 	return {
-		name: exercise.name,
-		suggestDecrease,
-		suggestIncrease,
-		noSuggestions: !suggestDecrease && !suggestIncrease,
-		id: exercise.id,
-		current: exercise.currentValue,
-		session: entry.value,
-		type: exercise.type
+		exercise,
+		entry,
+		suggestions: {
+			none: !suggestDecrease && !suggestIncrease,
+			increase: exercise.currentValue + exercise.increment,
+			decrease: exercise.currentValue
+		}
 	};
 }
