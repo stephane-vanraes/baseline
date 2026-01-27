@@ -19,8 +19,7 @@ export default async function () {
 	await Promise.all([
 		addBodyStatEntry({ waist: 107, weight: 97, createdAt: new Date('2026-01-05').getTime() }),
 		addBodyStatEntry({ waist: 107, weight: 96, createdAt: new Date('2026-01-12').getTime() }),
-		addBodyStatEntry({ waist: 107, weight: 95, createdAt: new Date('2026-01-19').getTime() }),
-		addBodyStatEntry({ waist: 107, weight: 96, createdAt: new Date('2026-01-26').getTime() })
+		addBodyStatEntry({ waist: 107, weight: 95, createdAt: new Date('2026-01-19').getTime() })
 	]);
 
 	const [ex1, ex2, ex3] = await Promise.all([

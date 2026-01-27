@@ -26,6 +26,8 @@
 		/>
 	{:else}
 		<MeasurementsForm
+			currentWeight={data.profile?.currentWeight}
+			currentWaist={data.profile?.currentWaist}
 			onSubmitted={() => {
 				hasEnteredMeasurements = true;
 			}}

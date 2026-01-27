@@ -3,7 +3,8 @@ import {
 	allPrograms,
 	allExercises,
 	getRecentExerciseEntriesAll,
-	getRecentBodyStats
+	getRecentBodyStats,
+	getProfile
 } from '$lib/db';
 import { isCurrentDay, isCurrentWeek } from '$lib/utils/date';
 
@@ -17,6 +18,7 @@ export async function load() {
 		onboarding: await getOnboarding(),
 		programs: await allPrograms(),
 		exercises: await allExercises(),
+		profile: await getProfile(),
 		hasExerciseToday,
 		hasMeasurementsThisWeek
 	};

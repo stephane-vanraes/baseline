@@ -3,7 +3,11 @@
 	import Card from '$lib/components/Card.svelte';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 
-	const { onSubmitted }: { onSubmitted?: () => void } = $props();
+	const {
+		onSubmitted,
+		currentWeight,
+		currentWaist
+	}: { onSubmitted?: () => void; currentWeight?: number; currentWaist?: number } = $props();
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -23,8 +27,8 @@
 <h1>New measurements</h1>
 <Card vertical>
 	<form onsubmit={handleSubmit}>
-		<NumberInput label="Weight" name="weight" unit="kg" />
-		<NumberInput label="Waist" name="waist" unit="cm" />
+		<NumberInput label="Weight" name="weight" unit="kg" value={currentWeight} />
+		<NumberInput label="Waist" name="waist" unit="cm" value={currentWaist} />
 		<button class="button" type="submit">Add measurements</button>
 	</form>
 </Card>
