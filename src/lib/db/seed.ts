@@ -30,25 +30,29 @@ export default async function () {
 			name: 'Incline DB Press',
 			type: 'weight',
 			currentValue: 30,
-			initialValue: 30
+			initialValue: 30,
+			increment: 2.5
 		}),
 		addExercise({
 			name: 'Overhead Carry (15sec)',
 			type: 'weight',
 			currentValue: 30,
-			initialValue: 30
+			initialValue: 30,
+			increment: 2.5
 		}),
 		addExercise({
 			name: 'Zercher Carry (60sec)',
 			type: 'weight',
 			currentValue: 65,
-			initialValue: 60
+			initialValue: 60,
+			increment: 2.5
 		}),
 		addExercise({
 			name: 'Dead Hang',
 			type: 'time',
 			currentValue: 10,
-			initialValue: 10
+			initialValue: 10,
+			increment: 5
 		})
 	]);
 

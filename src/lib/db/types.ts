@@ -11,6 +11,7 @@ export interface Exercise extends Base {
 	type: ExerciseType;
 	initialValue: number;
 	currentValue: number;
+	increment: number;
 }
 
 export interface ExerciseEntry extends Base {

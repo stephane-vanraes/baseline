@@ -6,7 +6,7 @@ export type Analysis = {
 	suggestIncrease: boolean;
 	suggestDecrease: boolean;
 	noSuggestions: boolean;
-	id: number;
+	id: string;
 	current: number;
 	session: number;
 	type: ExerciseType;

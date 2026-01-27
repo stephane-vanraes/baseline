@@ -25,6 +25,7 @@
 		const name = String(data.get('name') ?? '').trim();
 		const type = (data.get('type') as ExerciseType) ?? 'weight';
 		const initialValue = Number(data.get('initialValue') ?? 0);
+		const increment = Number(data.get('increment') ?? 1);
 
 		if (!name) return;
 
@@ -32,7 +33,8 @@
 			name,
 			type,
 			initialValue,
-			currentValue: initialValue
+			currentValue: initialValue,
+			increment
 		});
 
 		await goto(resolve('/exercises/[id]', { id }));
@@ -44,6 +46,7 @@
 	<TextInput label="Name" name="name" />
 	<SelectInput label="Type" name="type" options={typeOptions} bind:value={selectedType} />
 	<NumberInput label="Initial value" name="initialValue" value={30} {unit} />
+	<NumberInput label="Increment" name="increment" value={1} {unit} />
 	<div class="buttons">
 		<button class="button" type="submit">Create exercise</button>
 		<a href={resolve('/exercises')} class="button danger">Cancel</a>

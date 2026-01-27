@@ -55,6 +55,10 @@
 				<button type="button" onclick={changeToLatest}>Set</button>
 			{/if}
 		{/if}
+		<div>
+			<span>Increment</span>
+			<strong>{formatExercise(exercise.increment, exercise.type)}</strong>
+		</div>
 		<form class="update" onsubmit={handleSubmit} id="form">
 			<NumberInput
 				label="Current value"
