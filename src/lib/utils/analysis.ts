@@ -9,40 +9,87 @@ export type Analysis = {
 	};
 	exercise: Exercise;
 	entry: ExerciseEntry;
+	history: {
+		rpe?: number;
+	};
 };
 
+const ninetyDaysMs = 90 * 24 * 60 * 60 * 1000;
+
+function median(values: number[]) {
+	if (!values.length) return undefined;
+	const sorted = [...values].sort((a, b) => a - b);
+	return sorted[Math.floor(sorted.length / 2)];
+}
+
+function getLast3Relevant(
+	history: ExerciseEntry[],
+	currentValue: number
+): { entries: ExerciseEntry[]; medianRpe?: number } {
+	const now = Date.now();
+	const last3 = history
+		.filter((item) => item.createdAt && now - item.createdAt <= ninetyDaysMs)
+		.filter((item) => item.value >= currentValue)
+		.slice(0, 3);
+
+	const medianRpe = last3.length === 3 ? median(last3.map((i) => i.rpe)) : undefined;
+
+	return { entries: last3, medianRpe };
+}
+
+export function getSuggestedIncrease(
+	exercise: Exercise,
+	entry: ExerciseEntry,
+	last3: ExerciseEntry[],
+	medianRpe?: number
+): number | undefined {
+	const c = exercise.currentValue;
+	const inc = exercise.increment;
+	const s = entry.value;
+	const r = entry.rpe;
+
+	if (s < c) return undefined;
+	if (r > 8) return undefined;
+
+	if (s >= c + 2 * inc && r <= 7) {
+		return c + inc;
+	}
+
+	if (last3.length < 3) return undefined;
+
+	if (medianRpe !== undefined && medianRpe <= 7) {
+		return c + inc;
+	}
+
+	return undefined;
+}
+
 export async function analyse(entry: ExerciseEntry): Promise<Analysis> {
-	const [exercise, previous] = await Promise.all([
+	const [exercise, _previous] = await Promise.all([
 		getExercise(entry.exerciseId),
-		await getRecentExerciseEntries(entry.exerciseId)
+		getRecentExerciseEntries(entry.exerciseId, 10)
 	]);
 
 	if (!exercise) {
 		throw 'Exercise Not Found';
 	}
-	previous.shift();
 
-	const countSub7 = previous.filter((e) => e.rpe <= 7).length;
+	const previous = _previous.filter((e) => e.id !== entry.id);
 
-	const suggestIncrease = entry.value >= exercise.currentValue && entry.rpe <= 8 && countSub7 >= 2;
-
+	const { entries: last3, medianRpe } = getLast3Relevant(previous, exercise.currentValue);
+	const suggestIncrease = getSuggestedIncrease(exercise, entry, last3, medianRpe);
 	const suggestDecrease = entry.rpe >= 9.5;
-
-	console.log({
-		name: exercise.name,
-		previous,
-		countSub7,
-		suggestDecrease,
-		suggestIncrease
-	});
 
 	return {
 		exercise,
 		entry,
+		history: {
+			rpe: medianRpe
+		},
 		suggestions: {
 			none: !suggestDecrease && !suggestIncrease,
-			increase: exercise.currentValue + exercise.increment,
-			decrease: exercise.currentValue
+			increase: suggestIncrease,
+			decrease: suggestDecrease ? exercise.currentValue : undefined
 		}
 	};
 }

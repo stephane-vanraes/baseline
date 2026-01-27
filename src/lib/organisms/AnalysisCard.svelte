@@ -4,7 +4,7 @@
 	import { type Analysis } from '$lib/utils/analysis';
 	import { formatExercise, getSuffix } from '$lib/utils/exercise';
 
-	const { entry, exercise, suggestions }: Analysis = $props();
+	const { entry, exercise, suggestions, history }: Analysis = $props();
 </script>
 
 {#if suggestions.none}
@@ -27,7 +27,22 @@
 				<strong>{formatExercise(entry.value, exercise.type)}</strong>
 			</div>
 
-			<p>Looks like you're doing great,maybe increase the volume?</p>
+			<div>
+				<span>Session RPE</span>
+				<strong>{entry.rpe}</strong>
+			</div>
+
+			<div>
+				<span>Recent RPE</span>
+				<strong>{history.rpe ?? '-'}</strong>
+			</div>
+
+			<p>
+				Recent sessions indicate low relative effort. Suggested adjustment: +{formatExercise(
+					exercise.increment,
+					exercise.type
+				)}
+			</p>
 
 			<NumberInput
 				label={exercise.type}
