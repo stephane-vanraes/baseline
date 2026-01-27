@@ -29,6 +29,4 @@
 	{@render children()}
 </main>
 
-{#if dev}
-	<Footer />
-{/if}
+<Footer />

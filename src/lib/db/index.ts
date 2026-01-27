@@ -13,4 +13,4 @@ export { addProgram, allPrograms, getProgram, getExercisesForProgram } from './p
 export { getProfile, updateProfile } from './profile';
 export { getOnboarding } from './onboarding';
 export { addBodyStatEntry, getRecentBodyStats } from './bodystats';
-export { clearDatabase, seedDatabase } from './maintenance';
+export { clearDatabase, seedDatabase, exportDatabase, importDatabase } from './maintenance';
