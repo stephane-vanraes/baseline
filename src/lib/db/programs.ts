@@ -1,6 +1,6 @@
 import type * as DB from './types';
 import { db } from './client';
-import type { Inserter } from './helpers';
+import type { Inserter, ProgramUpdater } from './helpers';
 import { getExercise } from './exercises';
 
 export function allPrograms() {
@@ -26,4 +26,13 @@ export function addProgram(program: Inserter<DB.Program>) {
 		createdAt: Date.now(),
 		updatedAt: Date.now()
 	});
+}
+
+export function updateProgram(id: string, program: ProgramUpdater) {
+	return db.programs
+		.update(id, {
+			...program,
+			updatedAt: Date.now()
+		})
+		.then(Boolean);
 }

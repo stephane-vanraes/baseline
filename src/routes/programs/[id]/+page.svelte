@@ -5,7 +5,10 @@
 	let { data } = $props();
 </script>
 
-<h1>{data.program.name}</h1>
+<div class="page-header">
+	<h1>{data.program.name}</h1>
+	<a class="button" href={resolve('/programs/[id]/edit', { id: data.program.id })}>Edit</a>
+</div>
 {#if data.program.description}
 	<p>{data.program.description}</p>
 {/if}
@@ -18,3 +21,13 @@
 		</li>
 	{/each}
 </ul>
+
+<style>
+	.page-header {
+		align-items: center;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		justify-content: space-between;
+	}
+</style>
