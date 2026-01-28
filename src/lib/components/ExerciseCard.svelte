@@ -8,7 +8,12 @@
 
 <Card>
 	<div>
-		<strong>{exercise.name}</strong>
+		<p>
+			<strong>{exercise.name}</strong>
+			{#if exercise.deletedAt}
+				<small>(deleted)</small>
+			{/if}
+		</p>
 		<span>{exercise.type}</span>
 	</div>
 	<em>{formatExercise(exercise.currentValue, exercise.type)} </em>

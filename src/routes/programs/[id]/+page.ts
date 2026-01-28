@@ -7,7 +7,7 @@ export async function load({ params }) {
 	if (!program) {
 		error(404);
 	}
-	const exercises = await allExercises();
+	const exercises = await allExercises(true);
 	const programExercises = getProgramExercises(program, exercises);
 	return { program, programExercises };
 }

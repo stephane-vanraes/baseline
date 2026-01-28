@@ -5,6 +5,8 @@
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import { getSuffix } from '$lib/utils/exercise';
+	import Banner from '$lib/components/Banner.svelte';
+	import { resolve } from '$app/paths';
 
 	type Props = {
 		exercises: Exercise[];
@@ -37,10 +39,23 @@
 </script>
 
 <h2>{program.name}</h2>
+{#if exercises.some((ex) => !!ex.deletedAt)}
+	<Banner
+		title="Deleted exercises"
+		body="This program contains deleted exercises. It is recommended to adjust the program before continuing"
+		action="Edit program"
+		href={resolve('/programs/[id]/edit', { id: program.id })}
+	/>
+{/if}
 <form onsubmit={handleSubmit}>
 	{#each exercises as exercise (exercise.id)}
 		<Card vertical>
-			<strong>{exercise.name}</strong>
+			<p>
+				<strong>{exercise.name}</strong>
+				{#if exercise.deletedAt}
+					<small>(deleted)</small>
+				{/if}
+			</p>
 			<div class="inputs">
 				<NumberInput
 					label={exercise.type}

@@ -13,6 +13,12 @@
 		await updateProgram(data.program.id, { name, description, exerciseIds });
 		await goto(resolve('/programs/[id]', { id: data.program.id }));
 	}
+
+	async function handleDelete() {
+		if (!data.program?.id) return;
+		await updateProgram(data.program.id, { deletedAt: Date.now() });
+		await goto(resolve('/programs'));
+	}
 </script>
 
 <ProgramForm
@@ -27,3 +33,13 @@
 	}}
 	onSubmit={handleSubmit}
 />
+
+<div class="danger-zone">
+	<button class="button danger" type="button" onclick={handleDelete}>Delete program</button>
+</div>
+
+<style>
+	.danger-zone {
+		margin-top: 1rem;
+	}
+</style>

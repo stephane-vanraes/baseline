@@ -8,7 +8,10 @@ export async function load({ params }) {
 		error(404);
 	}
 
-	const exercises = await allExercises();
+	const exerciseIds = new Set(program.exerciseIds ?? []);
+	const exercises = (await allExercises(true)).filter(
+		(exercise) => !exercise.deletedAt || exerciseIds.has(exercise.id)
+	);
 	const programExercises = getProgramExercises(program, exercises);
 
 	return { program, exercises, programExercises };

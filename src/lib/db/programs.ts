@@ -4,7 +4,7 @@ import type { Inserter, ProgramUpdater } from './helpers';
 import { getExercise } from './exercises';
 
 export function allPrograms() {
-	return db.programs?.toArray() ?? [];
+	return db.programs?.filter((program) => !program.deletedAt).toArray() ?? [];
 }
 
 export function getProgram(id: string) {

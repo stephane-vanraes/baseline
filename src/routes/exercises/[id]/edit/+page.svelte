@@ -30,6 +30,12 @@
 
 		await goto(resolve('/exercises/[id]', { id: data.exercise.id }));
 	}
+
+	async function handleDelete() {
+		if (!data.exercise?.id) return;
+		await updateExercise(data.exercise.id, { deletedAt: Date.now() });
+		await goto(resolve('/exercises'));
+	}
 </script>
 
 <ExerciseForm
@@ -40,3 +46,13 @@
 	showCurrentValue
 	onSubmit={handleSubmit}
 />
+
+<div class="danger-zone">
+	<button class="button danger" type="button" onclick={handleDelete}>Delete exercise</button>
+</div>
+
+<style>
+	.danger-zone {
+		margin-top: 1rem;
+	}
+</style>

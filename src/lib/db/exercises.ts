@@ -3,8 +3,13 @@ import type * as DB from './types';
 import { db } from './client';
 import type { ExerciseUpdater, Inserter } from './helpers';
 
-export function allExercises() {
-	return db.exercises?.toArray().then((items) => items.sort((a, b) => a.name.localeCompare(b.name))) ?? [];
+export function allExercises(includeDeleted?: boolean) {
+	return (
+		db.exercises
+			?.filter((exercise) => (includeDeleted ? true : !exercise.deletedAt))
+			.toArray()
+			.then((items) => items.sort((a, b) => a.name.localeCompare(b.name))) ?? []
+	);
 }
 
 export function getExercise(id: string) {
