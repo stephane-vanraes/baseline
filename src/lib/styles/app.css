@@ -13,6 +13,20 @@
 	--color-danger-border: #f87171;
 }
 
+:root[data-theme='dark'] {
+	--color-background: #0f1115;
+	--color-surface: #151922;
+	--color-text: #e5e7eb;
+	--color-text-muted: #9ca3af;
+	--color-accent: #8fb0ff;
+	--color-accent-soft: #1f2a44;
+
+	--color-warning: #2a2414;
+	--color-warning-border: #e3b341;
+	--color-danger: #2b1a1a;
+	--color-danger-border: #f87171;
+}
+
 *,
 *:after,
 *:before {
