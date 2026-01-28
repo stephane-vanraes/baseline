@@ -3,6 +3,7 @@
 	import type { Exercise } from '$lib/db/types';
 	import { goto } from '$app/navigation';
 	import TextInput from '$lib/components/forms/TextInput.svelte';
+	import TextareaInput from '$lib/components/forms/TextareaInput.svelte';
 	import ExerciseCard from '$lib/components/ExerciseCard.svelte';
 	import { resolve } from '$app/paths';
 
@@ -30,11 +31,12 @@
 		const form = event.currentTarget as HTMLFormElement;
 		const data = new FormData(form);
 		const name = String(data.get('name') ?? '').trim();
+		const description = String(data.get('description') ?? '').trim();
 		if (!name) return;
 
 		const exerciseIds = selected.map((exercise) => exercise.id).filter(Boolean) as string[];
 
-		const id = await addProgram({ name, exerciseIds });
+		const id = await addProgram({ name, description, exerciseIds });
 		await goto(resolve('/programs/[id]', { id }));
 	}
 </script>
@@ -42,6 +44,7 @@
 <h1>New program</h1>
 <form onsubmit={handleSubmit}>
 	<TextInput label="Name" name="name" />
+	<TextareaInput label="Description" name="description" />
 	<h2>Selected exercises ({selected.length})</h2>
 	<ul>
 		{#each selected as exercise (exercise.id)}

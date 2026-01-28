@@ -6,6 +6,9 @@
 </script>
 
 <h1>{data.program.name}</h1>
+{#if data.program.description}
+	<p>{data.program.description}</p>
+{/if}
 <ul>
 	{#each data.programExercises as exercise (exercise.id)}
 		<li>

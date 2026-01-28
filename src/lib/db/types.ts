@@ -1,17 +1,20 @@
 export interface Base {
 	id: string;
 	createdAt?: number;
+	deletedAt?: number;
 	updatedAt?: number;
 }
 
 export type ExerciseType = 'weight' | 'time' | 'distance';
 
 export interface Exercise extends Base {
+	currentValue: number;
+	description?: string;
+	increment: number;
+	initialValue: number;
+	link?: string;
 	name: string;
 	type: ExerciseType;
-	initialValue: number;
-	currentValue: number;
-	increment: number;
 }
 
 export interface ExerciseEntry extends Base {
@@ -23,6 +26,7 @@ export interface ExerciseEntry extends Base {
 export interface Program extends Base {
 	name: string;
 	exerciseIds: string[];
+	description?: string;
 }
 
 export interface Profile extends Base {

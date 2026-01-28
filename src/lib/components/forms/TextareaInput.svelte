@@ -2,19 +2,19 @@
 	let {
 		label,
 		name,
-		type = 'text',
-		value = $bindable('')
+		value = $bindable(''),
+		rows = 4
 	} = $props<{
 		label: string;
 		name: string;
-		type?: 'text' | 'url';
 		value?: string;
+		rows?: number;
 	}>();
 </script>
 
 <label>
 	<span>{label}</span>
-	<input {type} {name} bind:value />
+	<textarea {name} {rows} bind:value></textarea>
 </label>
 
 <style>
@@ -31,7 +31,7 @@
 		font-weight: 600;
 	}
 
-	input {
+	textarea {
 		padding: 0.5rem 0.875rem;
 		border-radius: 0.875rem;
 		border: 1px solid var(--color-accent-soft);
@@ -40,5 +40,7 @@
 		text-transform: none;
 		letter-spacing: normal;
 		max-inline-size: 100%;
+		min-block-size: 6rem;
+		resize: vertical;
 	}
 </style>
