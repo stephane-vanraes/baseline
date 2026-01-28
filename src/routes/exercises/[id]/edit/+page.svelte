@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { updateExercise } from '$lib/db';
+	import { addToast } from '$lib/components/Toast/toastList.svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import ExerciseForm from '../../ExerciseForm.svelte';
@@ -28,12 +29,22 @@
 			currentValue: currentValue ?? data.exercise.currentValue
 		});
 
+		addToast({
+			title: 'Exercise updated',
+			body: 'Your changes have been saved.',
+			type: 'success'
+		});
 		await goto(resolve('/exercises/[id]', { id: data.exercise.id }));
 	}
 
 	async function handleDelete() {
 		if (!data.exercise?.id) return;
 		await updateExercise(data.exercise.id, { deletedAt: Date.now() });
+		addToast({
+			title: 'Exercise deleted',
+			body: 'This exercise was moved to the archive.',
+			type: 'warning'
+		});
 		await goto(resolve('/exercises'));
 	}
 </script>

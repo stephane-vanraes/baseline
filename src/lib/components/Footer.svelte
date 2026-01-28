@@ -2,6 +2,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { dev } from '$app/environment';
 	import { clearDatabase, exportDatabase, importDatabase, seedDatabase } from '$lib/db';
+	import { addToast } from '$lib/components/Toast/toastList.svelte';
 
 	const clear = () => clearDatabase().then(invalidateAll);
 	const seed = () => seedDatabase().then(invalidateAll);
@@ -18,6 +19,11 @@
 		link.download = `baseline-export-${new Date().toISOString().slice(0, 10)}.json`;
 		link.click();
 		URL.revokeObjectURL(url);
+		addToast({
+			title: 'Export ready',
+			body: 'Your data export has downloaded.',
+			type: 'success'
+		});
 	}
 
 	function startImport() {
@@ -33,6 +39,11 @@
 		await importDatabase(payload);
 		await invalidateAll();
 		input.value = '';
+		addToast({
+			title: 'Import complete',
+			body: 'Your data has been restored.',
+			type: 'success'
+		});
 	}
 </script>
 

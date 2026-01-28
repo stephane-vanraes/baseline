@@ -5,8 +5,8 @@
 	import { formatExercise, getSuffix } from '$lib/utils/exercise';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import { formatDateYMD } from '$lib/utils/date';
-	import Banner from '$lib/components/Banner.svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { addToast } from '$lib/components/Toast/toastList.svelte';
 
 	type Props = {
 		exercise: Exercise;
@@ -14,8 +14,6 @@
 	};
 
 	const { exercise, latestEntry }: Props = $props();
-
-	let hasChangedValue = $state(false);
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -25,24 +23,24 @@
 		const rawValue = data.get('currentValue');
 		const currentValue = Number(rawValue ?? exercise.currentValue);
 		await updateExercise(exercise.id, { currentValue });
-		hasChangedValue = true;
+		addToast({
+			title: 'Current value updated',
+			body: 'Your exercise value has been saved.',
+			type: 'success'
+		});
 		invalidateAll();
 	}
 
 	async function changeToLatest() {
 		await updateExercise(exercise.id, { currentValue: latestEntry?.value });
-		hasChangedValue = true;
+		addToast({
+			title: 'Current value updated',
+			body: 'Switched to the latest entry value.',
+			type: 'success'
+		});
 		invalidateAll();
 	}
 </script>
-
-{#if hasChangedValue}
-	<Banner
-		title="Current value changed"
-		body="You change the current value for this exercise"
-		timeout={3000}
-	/>
-{/if}
 
 <Card>
 	<div class="stats">

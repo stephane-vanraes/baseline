@@ -6,6 +6,7 @@
 	import { getExercisesForProgram } from '$lib/db';
 	import SessionAnalysis from './SessionAnalysis.svelte';
 	import { invalidate } from '$app/navigation';
+	import { addToast } from '$lib/components/Toast/toastList.svelte';
 
 	type Props = {
 		exercises: Exercise[];
@@ -49,6 +50,11 @@
 				onComplete={() => {
 					selectedProgram = undefined;
 					invalidate('app:exercise-entries');
+					addToast({
+						title: 'Session completed',
+						body: 'Nice work — your session has been saved.',
+						type: 'success'
+					});
 				}}
 			/>
 		{/if}

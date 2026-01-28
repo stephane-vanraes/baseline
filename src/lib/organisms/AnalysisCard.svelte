@@ -5,6 +5,7 @@
 	import { formatExercise, getSuffix } from '$lib/utils/exercise';
 	import { updateExercise } from '$lib/db';
 	import { invalidateAll } from '$app/navigation';
+	import { addToast } from '$lib/components/Toast/toastList.svelte';
 
 	const { entry, exercise, suggestions, history }: Analysis = $props();
 
@@ -27,6 +28,11 @@
 		if (!exercise.id || value === undefined) return;
 		await updateExercise(exercise.id, { currentValue: value });
 		await invalidateAll();
+		addToast({
+			title: 'Value updated',
+			body: 'Current value adjusted based on your session.',
+			type: 'success'
+		});
 	}
 </script>
 
