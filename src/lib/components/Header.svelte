@@ -51,9 +51,13 @@
 <style>
 	header {
 		background-color: var(--color-accent);
+		color: var(--color-accent-text);
 		letter-spacing: 0.08em;
 	}
 
+	h1 {
+		text-decoration: none;
+	}
 	div {
 		align-items: center;
 		display: flex;
@@ -88,5 +92,18 @@
 
 	[aria-current~='page'] {
 		background-color: var(--color-background);
+		color: var(--color-text);
+	}
+
+	:global(:root[data-theme='dark']) {
+		header {
+			background-color: var(--color-surface);
+			border-block-end: 1px solid var(--color-surface-border);
+			color: var(--color-text);
+		}
+		[aria-current~='page'] {
+			background-color: var(--color-accent);
+			color: var(--color-accent-text);
+		}
 	}
 </style>

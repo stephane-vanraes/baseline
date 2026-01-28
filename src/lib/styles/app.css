@@ -1,6 +1,8 @@
 :root {
 	--color-accent: #7aa2f7;
 	--color-accent-border: hsl(from var(--color-accent) h s calc(l * 0.7));
+	--color-accent-text: #0f172a;
+
 	--color-background: #f6f8fc;
 	--color-surface: #fbfcff;
 	--color-surface-border: hsl(from var(--color-surface) h s calc(l * 0.9));
@@ -29,6 +31,30 @@
 }
 
 :root[data-theme='dark'] {
+	--color-accent: #7aa2f7;
+	--color-accent-border: hsl(from var(--color-accent) h s calc(l * 0.75));
+	--color-accent-text: #111827;
+
+	--color-background: #0b1220;
+	--color-surface: #101a2d;
+	--color-surface-border: #1b2a46;
+
+	--color-text: #e6edf7;
+	--color-success: #49c27d;
+	--color-success-bg: #0f231a;
+	--color-success-border: #1f6b45;
+
+	--color-info: #7aa2f7;
+	--color-info-bg: #0f1d3a;
+	--color-info-border: #2b4f9b;
+
+	--color-warning: #f0c05a;
+	--color-warning-bg: #2a1d06;
+	--color-warning-border: #7a5a18;
+
+	--color-error: #f07a7a;
+	--color-error-bg: #2a0f12;
+	--color-error-border: #7a2c34;
 }
 
 *,
@@ -103,6 +129,7 @@ button {
 	background-color: var(--color-accent);
 	border: 1px solid var(--color-accent-border);
 	border-radius: var(--gap);
+	color: var(--color-accent-text);
 	letter-spacing: 0.08em;
 	padding: var(--gap-sm) var(--gap);
 	text-transform: uppercase;
