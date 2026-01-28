@@ -4,6 +4,8 @@
 	import { clearDatabase, exportDatabase, importDatabase, seedDatabase } from '$lib/db';
 	import { showToast } from '$lib/components/Toast/toastMessages';
 	import Card from '$lib/components/Card.svelte';
+	import Switch from '$lib/components/forms/Switch.svelte';
+	import preferences from '$lib/stores/preferences.svelte';
 
 	let fileInput: HTMLInputElement | null = $state(null);
 
@@ -49,12 +51,18 @@
 		input.value = '';
 		showToast('importComplete');
 	}
+
 </script>
 
 <h1>Settings</h1>
 
 <Card vertical>
 	<h2>Preferences</h2>
+	<Switch
+		label="Dark mode"
+		description="Use a darker theme across the app."
+		bind:checked={preferences.darkMode.current}
+	/>
 </Card>
 
 <Card vertical>

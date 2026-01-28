@@ -6,8 +6,13 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Toast from '$lib/components/Toast/Toast.svelte';
 	import { onMount } from 'svelte';
+	import preferences from '$lib/stores/preferences.svelte';
 
 	let { children } = $props();
+
+	$effect(() => {
+		document.documentElement.dataset.theme = preferences.darkMode.current ? 'dark' : 'light';
+	});
 
 	onMount(() => {
 		if (dev) return;
