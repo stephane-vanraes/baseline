@@ -2,7 +2,7 @@
 	import { addExerciseEntry, getExercisesForProgram } from '$lib/db';
 	import type { Exercise, ExerciseEntry, Program } from '$lib/db/types';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
-	import Card from '$lib/components/Card.svelte';
+
 	import { getSuffix } from '$lib/utils/exercise';
 	import Banner from '$lib/components/Banner.svelte';
 	import { resolve } from '$app/paths';
@@ -48,7 +48,7 @@
 {/if}
 <form onsubmit={handleSubmit}>
 	{#each exercises as exercise (exercise.id)}
-		<Card>
+		<div class="card">
 			<p>
 				<strong>{exercise.name}</strong>
 				{#if exercise.deletedAt}
@@ -64,7 +64,7 @@
 				/>
 				<NumberInput label="RPE" name={`${exercise.id}-rpe`} value={7} />
 			</div>
-		</Card>
+		</div>
 	{/each}
 	<div class="actions">
 		<button class="button" type="submit">Finish session</button>

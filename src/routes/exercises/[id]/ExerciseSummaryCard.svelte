@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Exercise, ExerciseEntry } from '$lib/db/types';
 	import { updateExercise } from '$lib/db';
-	import Card from '$lib/components/Card.svelte';
+
 	import { formatExercise, getSuffix } from '$lib/utils/exercise';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import { formatDateYMD } from '$lib/utils/date';
@@ -42,7 +42,7 @@
 	}
 </script>
 
-<Card>
+<div class="card">
 	<div class="stats">
 		{#if latestEntry}
 			<div>
@@ -67,5 +67,4 @@
 		</form>
 		<button class="button" type="submit" form="form">Set</button>
 	</div>
-</Card>
-
+</div>

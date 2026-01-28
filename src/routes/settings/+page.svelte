@@ -3,7 +3,7 @@
 	import { dev } from '$app/environment';
 	import { clearDatabase, exportDatabase, importDatabase, seedDatabase } from '$lib/db';
 	import { showToast } from '$lib/components/Toast/toastMessages';
-	import Card from '$lib/components/Card.svelte';
+
 	import Switch from '$lib/components/forms/Switch.svelte';
 	import preferences from '$lib/stores/preferences.svelte';
 
@@ -55,12 +55,12 @@
 
 <h1>Settings</h1>
 
-<Card>
+<div class="card">
 	<h2>Preferences</h2>
 	<Switch label="Dark mode" bind:checked={preferences.darkMode.current} />
-</Card>
+</div>
 
-<Card>
+<div class="card">
 	<h2>Data</h2>
 	<button class="button danger" type="button" onclick={clearAllData}>Clear all data</button>
 	<button class="button" type="button" onclick={exportData}>Export</button>
@@ -75,4 +75,4 @@
 	{#if dev}
 		<button class="button" type="button" onclick={seed}>Seed</button>
 	{/if}
-</Card>
+</div>

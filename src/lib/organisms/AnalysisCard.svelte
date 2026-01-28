@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Card from '$lib/components/Card.svelte';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import { type Analysis } from '$lib/utils/analysis';
 	import { formatExercise, getSuffix } from '$lib/utils/exercise';
@@ -25,12 +24,12 @@
 </script>
 
 {#if suggestions.none}
-	<Card>
+	<div class="card">
 		<strong>{exercise.name}</strong>
 		<small>OK</small>
-	</Card>
+	</div>
 {:else if suggestions.increase}
-	<Card>
+	<div class="card">
 		<div class="summary">
 			<strong>{exercise.name}</strong>
 
@@ -68,9 +67,9 @@
 			/>
 			<button type="button" onclick={() => applyValue(increaseValue)}>Set</button>
 		</div>
-	</Card>
+	</div>
 {:else if suggestions.decrease}
-	<Card>
+	<div class="card">
 		<div class="summary">
 			<strong>{exercise.name}</strong>
 
@@ -108,5 +107,5 @@
 			/>
 			<button type="button" onclick={() => applyValue(decreaseValue)}>Set</button>
 		</div>
-	</Card>
+	</div>
 {/if}

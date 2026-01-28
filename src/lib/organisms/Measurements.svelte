@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { invalidate } from '$app/navigation';
 	import Banner from '$lib/components/Banner.svelte';
-	import Card from '$lib/components/Card.svelte';
+
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import { addBodyStatEntry } from '$lib/db';
 	import type { Profile } from '$lib/db/types';
@@ -32,11 +32,11 @@
 {#if hasMeasurements}
 	<Banner title="Measurements logged" body="You've already logged measurements this week." />
 {:else}
-	<Card>
+	<div class="card">
 		<form onsubmit={handleSubmit}>
 			<NumberInput label="Weight" name="weight" unit="kg" value={profile.currentWeight} />
 			<NumberInput label="Waist" name="waist" unit="cm" value={profile.currentWaist} />
 			<button class="button" type="submit">Add entry</button>
 		</form>
-	</Card>
+	</div>
 {/if}

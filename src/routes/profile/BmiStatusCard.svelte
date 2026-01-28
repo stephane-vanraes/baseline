@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { BodyStatsEntry, Profile } from '$lib/db/types';
-	import Card from '$lib/components/Card.svelte';
 
 	type Props = {
 		profile: Profile;
@@ -25,9 +24,37 @@
 	});
 </script>
 
-<Card>
-	<span>BMI status</span>
+<div class="card">
+	<small>BMI status</small>
 	<strong>{bmi ? bmi.toFixed(1) : '—'}</strong>
 	<span class={`badge ${bmiStatus.tone}`}>{bmiStatus.label}</span>
-</Card>
+</div>
 
+<style>
+	div {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+	}
+	.badge {
+		background-color: var(--color-accent);
+		border-radius: var(--gap-xl);
+		border: 2px solid var(--color-accent-border);
+		font-size: 0.875rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		max-inline-size: max-content;
+		padding: var(--gap-sm) var(--gap);
+		text-transform: uppercase;
+	}
+	.badge.danger {
+		background-color: var(--color-error-bg);
+		border-color: var(--color-error-border);
+		color: var(--color-error);
+	}
+	.badge.warning {
+		background-color: var(--color-warning-bg);
+		border-color: var(--color-warning-border);
+		color: var(--color-warning);
+	}
+</style>

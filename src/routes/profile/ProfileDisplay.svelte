@@ -2,26 +2,36 @@
 	import type { Profile } from '$lib/db/types';
 	import { formatDateYMD } from '$lib/utils/date';
 
-	const { name, dob, height, currentWeight, currentWaist }: Profile = $props();
+	const { dob, height, currentWeight, currentWaist }: Profile = $props();
 </script>
 
-<section>
-	<h1>{name}</h1>
+<div class="card">
 	<div>
-		<span>Date of Birth</span>
+		<small>Date of Birth</small>
 		<strong>{formatDateYMD(dob)}</strong>
 	</div>
 	<div>
-		<span>Height</span>
+		<small>Height</small>
 		<strong>{height} cm</strong>
 	</div>
 	<div>
-		<span>Weight</span>
+		<small>Weight</small>
 		<strong>{currentWeight} kg</strong>
 	</div>
 	<div>
-		<span>Waist</span>
+		<small>Waist</small>
 		<strong>{currentWaist} cm</strong>
 	</div>
-</section>
+</div>
 
+<style>
+	.card {
+		grid-template-columns: 1fr 1fr;
+		gap: var(--gap);
+
+		> div {
+			display: grid;
+			gap: var(--gap-sm);
+		}
+	}
+</style>

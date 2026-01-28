@@ -19,7 +19,6 @@
 		</thead>
 		<tbody>
 			{#each entries as entry, index (entry.id ?? entry.createdAt)}
-				{@const next = entries[index + 1]}
 				<tr>
 					<td>{formatDateYMD(entry.createdAt)}</td>
 					<td>{entry.weight} </td>
@@ -30,3 +29,49 @@
 	</table>
 {/if}
 
+<style>
+	p {
+		margin: 0;
+		opacity: 0.7;
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	thead th {
+		text-align: left;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		opacity: 0.7;
+		padding: 0 0.5rem 0.8rem;
+
+		&:not(:first-child) {
+			text-align: center;
+		}
+	}
+
+	tbody tr {
+		border-radius: 0.75rem;
+		border: 1px solid var(--color-accent-soft);
+		background: var(--color-surface);
+	}
+
+	tbody td {
+		padding: 0.65rem 0.8rem;
+		color: var(--color-text);
+		border-top: 1px solid var(--color-accent-soft);
+
+		&:not(:first-child) {
+			font-weight: 600;
+			text-align: center;
+		}
+	}
+
+	tbody tr:first-child td {
+		border-top: none;
+	}
+</style>
