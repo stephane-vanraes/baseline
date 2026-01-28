@@ -14,6 +14,7 @@
 		<a href={resolve('/programs')}>Programs</a>
 		<a href={resolve('/exercises')}>Exercises</a>
 		<a href={resolve('/profile')}>Profile</a>
+		<a href={resolve('/settings')}>Settings</a>
 	</nav>
 </header>
 
@@ -24,7 +25,6 @@
 		box-shadow: var(--shadow);
 		padding: 1rem 1.5rem;
 		margin-inline: auto;
-		max-inline-size: 96ch;
 	}
 
 	div {

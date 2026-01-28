@@ -45,10 +45,10 @@ body {
 	min-height: 100dvh;
 }
 main {
+	align-items: start;
+	align-content: start;
 	display: grid;
 	gap: 1rem;
-	margin-inline: auto;
-	max-inline-size: 96ch;
 	padding: 1rem;
 }
 

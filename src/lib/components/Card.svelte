@@ -17,7 +17,7 @@
 		border: 1px solid var(--color-accent-soft);
 		color: var(--color-text);
 		display: flex;
-		gap: 1rem;
+		gap: 0.5rem;
 		justify-content: space-between;
 		max-inline-size: 100%;
 		padding: 0.75rem 1rem;
