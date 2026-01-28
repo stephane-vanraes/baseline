@@ -14,20 +14,22 @@
 	const saveProfile: SubmitFunction = async ({ formData, cancel }) => {
 		cancel();
 
-		const asInt = (k: string) => parseInt(formData.get(k)?.toString() ?? '0');
+		const asFloat = (k: string) => parseFloat(formData.get(k)?.toString() ?? '0');
 		const asString = (k: string) => formData.get(k)?.toString() ?? '';
 
 		await updateProfile({
 			name: asString('name'),
 			dob: asString('dob'),
-			height: asInt('height'),
+			height: asFloat('height'),
 			sex: asString('sex') as 'male' | 'female',
-			currentWaist: asInt('currentWaist'),
-			currentWeight: asInt('currentWeight'),
-			initialWaist: data.profile?.initialWaist ? data.profile.initialWaist : asInt('currentWaist'),
+			currentWaist: asFloat('currentWaist'),
+			currentWeight: asFloat('currentWeight'),
+			initialWaist: data.profile?.initialWaist
+				? data.profile.initialWaist
+				: asFloat('currentWaist'),
 			initialWeight: data.profile?.initialWeight
 				? data.profile.initialWeight
-				: asInt('currentWeight')
+				: asFloat('currentWeight')
 		});
 
 		goto(resolve('/profile'));
@@ -54,6 +56,7 @@
 		name="currentWeight"
 		value={data.profile?.currentWeight ?? 80}
 		unit="kg"
+		step={0.1}
 	/>
 	<NumberInput
 		label="Waist"
