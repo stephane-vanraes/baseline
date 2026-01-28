@@ -4,6 +4,7 @@
 	import Header from '$lib/components/Header.svelte';
 	import { dev } from '$app/environment';
 	import Footer from '$lib/components/Footer.svelte';
+	import Toast from '$lib/components/Toast/Toast.svelte';
 	import { onMount } from 'svelte';
 
 	let { children } = $props();
@@ -30,3 +31,4 @@
 </main>
 
 <Footer />
+<Toast />
