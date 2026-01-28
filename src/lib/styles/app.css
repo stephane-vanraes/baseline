@@ -39,7 +39,11 @@ html {
 	overflow-y: scroll;
 	scroll-behavior: smooth;
 }
-
+body {
+	display: grid;
+	grid-template-rows: max-content;
+	min-height: 100dvh;
+}
 main {
 	display: grid;
 	gap: 1rem;
