@@ -32,7 +32,7 @@
 {#if hasMeasurements}
 	<Banner title="Measurements logged" body="You've already logged measurements this week." />
 {:else}
-	<Card vertical>
+	<Card>
 		<form onsubmit={handleSubmit}>
 			<NumberInput label="Weight" name="weight" unit="kg" value={profile.currentWeight} />
 			<NumberInput label="Waist" name="waist" unit="cm" value={profile.currentWaist} />
@@ -40,4 +40,3 @@
 		</form>
 	</Card>
 {/if}
-

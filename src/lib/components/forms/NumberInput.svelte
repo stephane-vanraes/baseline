@@ -16,11 +16,40 @@
 			<small>({unit})</small>
 		{/if}
 	</span>
-	<div class="field">
+	<div>
 		<input type="number" {name} {step} bind:value />
 		{#if unit}
-			<span>{unit}</span>
+			<small>{unit}</small>
 		{/if}
 	</div>
 </label>
 
+<style>
+	label {
+		display: grid;
+		gap: var(--gap-sm);
+	}
+
+	span {
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	div {
+		align-items: center;
+		display: flex;
+		gap: var(--gap);
+	}
+
+	input {
+		padding: var(--gap) var(--gap-l);
+		border-radius: var(--gap);
+		border: 1px solid var(--color-accent);
+		background: var(--color-surface);
+		color: var(--color-text);
+		inline-size: 100%;
+		text-transform: none;
+	}
+</style>

@@ -51,36 +51,28 @@
 		input.value = '';
 		showToast('importComplete');
 	}
-
 </script>
 
 <h1>Settings</h1>
 
-<Card vertical>
+<Card>
 	<h2>Preferences</h2>
-	<Switch
-		label="Dark mode"
-		description="Use a darker theme across the app."
-		bind:checked={preferences.darkMode.current}
-	/>
+	<Switch label="Dark mode" bind:checked={preferences.darkMode.current} />
 </Card>
 
-<Card vertical>
+<Card>
 	<h2>Data</h2>
-	<div class="actions">
-		<button class="button danger" type="button" onclick={clearAllData}>Clear all data</button>
-		<button class="button" type="button" onclick={exportData}>Export</button>
-		<button class="button" type="button" onclick={startImport}>Import</button>
-		<input
-			{@attach attachFileInput}
-			type="file"
-			accept="application/json"
-			onchange={handleImport}
-			hidden
-		/>
-		{#if dev}
-			<button class="button" type="button" onclick={seed}>Seed</button>
-		{/if}
-	</div>
+	<button class="button danger" type="button" onclick={clearAllData}>Clear all data</button>
+	<button class="button" type="button" onclick={exportData}>Export</button>
+	<button class="button" type="button" onclick={startImport}>Import</button>
+	<input
+		{@attach attachFileInput}
+		type="file"
+		accept="application/json"
+		onchange={handleImport}
+		hidden
+	/>
+	{#if dev}
+		<button class="button" type="button" onclick={seed}>Seed</button>
+	{/if}
 </Card>
-

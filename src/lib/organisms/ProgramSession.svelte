@@ -48,7 +48,7 @@
 {/if}
 <form onsubmit={handleSubmit}>
 	{#each exercises as exercise (exercise.id)}
-		<Card vertical>
+		<Card>
 			<p>
 				<strong>{exercise.name}</strong>
 				{#if exercise.deletedAt}
@@ -73,4 +73,3 @@
 		{/if}
 	</div>
 </form>
-

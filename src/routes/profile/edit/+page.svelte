@@ -52,6 +52,7 @@
 			{ value: 'female', label: 'Female' }
 		]}
 	/>
+	<hr />
 	<NumberInput label="Height" name="height" value={data.profile?.height ?? 170} unit="cm" />
 	<NumberInput
 		label="Weight"
@@ -69,3 +70,9 @@
 	<button type="submit">Save</button>
 </form>
 
+<style>
+	form {
+		display: grid;
+		gap: var(--gap);
+	}
+</style>

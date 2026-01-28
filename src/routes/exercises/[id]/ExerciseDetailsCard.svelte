@@ -9,7 +9,7 @@
 </script>
 
 {#if url || description}
-	<Card vertical>
+	<Card>
 		{#if description}
 			<p>{description}</p>
 		{/if}

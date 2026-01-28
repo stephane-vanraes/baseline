@@ -37,3 +37,12 @@
 
 <Footer />
 <Toast />
+
+<style>
+	main {
+		align-content: start;
+		display: grid;
+		gap: var(--gap-xl);
+		padding: var(--gap-l) var(--gap);
+	}
+</style>

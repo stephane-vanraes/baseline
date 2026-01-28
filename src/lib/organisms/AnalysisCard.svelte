@@ -30,7 +30,7 @@
 		<small>OK</small>
 	</Card>
 {:else if suggestions.increase}
-	<Card vertical>
+	<Card>
 		<div class="summary">
 			<strong>{exercise.name}</strong>
 
@@ -70,7 +70,7 @@
 		</div>
 	</Card>
 {:else if suggestions.decrease}
-	<Card vertical>
+	<Card>
 		<div class="summary">
 			<strong>{exercise.name}</strong>
 
@@ -110,4 +110,3 @@
 		</div>
 	</Card>
 {/if}
-
