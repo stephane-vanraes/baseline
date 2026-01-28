@@ -13,10 +13,3 @@
 	<a href={cancelHref} class="button danger">{cancelLabel}</a>
 </div>
 
-<style>
-	.actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-	}
-</style>

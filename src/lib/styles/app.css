@@ -1,30 +1,10 @@
 :root {
-	--color-background: #fbfcfa;
-	--color-surface: #ffffff;
-	--color-text: #1f2937;
-	--color-text-muted: #6b7280;
 	--color-accent: #7aa2f7;
-	--color-accent-soft: #e9eeff;
-	--font-base: 'Sora', 'Avenir Next', 'Segoe UI', sans-serif;
-
-	--color-warning: #fcf4db;
-	--color-warning-border: #f2c94c;
-	--color-danger: #fee2e2;
-	--color-danger-border: #f87171;
+	--color-background: #fbfcfa;
+	--color-text: #1f2937;
 }
 
 :root[data-theme='dark'] {
-	--color-background: #0f1115;
-	--color-surface: #151922;
-	--color-text: #e5e7eb;
-	--color-text-muted: #9ca3af;
-	--color-accent: #8fb0ff;
-	--color-accent-soft: #1f2a44;
-
-	--color-warning: #2a2414;
-	--color-warning-border: #e3b341;
-	--color-danger: #2b1a1a;
-	--color-danger-border: #f87171;
 }
 
 *,
@@ -45,7 +25,7 @@
 html {
 	background-color: var(--color-background);
 	color: var(--color-text);
-	font-family: var(--font-base);
+	font-family: 'Sora', 'Avenir Next', 'Segoe UI', sans-serif;
 	font-size: 1rem;
 	height: 100%;
 	line-height: 1.6;
@@ -53,74 +33,9 @@ html {
 	overflow-y: scroll;
 	scroll-behavior: smooth;
 }
+
 body {
 	display: grid;
-	grid-template-rows: max-content;
+	grid-template-rows: max-content 1fr max-content;
 	min-height: 100dvh;
-}
-main {
-	align-items: start;
-	align-content: start;
-	display: grid;
-	gap: 1rem;
-	padding: 1rem;
-}
-
-strong {
-	font-weight: 600;
-}
-
-button,
-.button {
-	background: var(--color-accent);
-	border-radius: 999px;
-	border: none;
-	color: var(--color-text);
-	cursor: pointer;
-	font-size: 0.75em;
-	letter-spacing: 0.08em;
-	max-inline-size: max-content;
-	padding: 0.5rem 1rem;
-	text-decoration: none;
-	text-transform: uppercase;
-	&.unstyled {
-		background-color: transparent;
-		inline-size: 100%;
-		max-inline-size: 100%;
-		padding: 0;
-	}
-	&.danger {
-		background-color: var(--color-danger);
-		border-color: var(--color-danger-border);
-	}
-}
-
-h1 {
-	font-size: 1.25em;
-	font-weight: 600;
-	letter-spacing: 0.08em;
-	text-decoration: underline;
-	text-decoration-color: var(--color-accent);
-	text-underline-offset: 0.5rem;
-}
-
-h2 {
-	font-size: 1.25em;
-	font-weight: 600;
-	letter-spacing: 0.08em;
-}
-
-em {
-	font-style: normal;
-	font-weight: 600;
-}
-
-small {
-	font-size: 0.65rem;
-	letter-spacing: 0.06em;
-	text-transform: none;
-}
-
-li + li {
-	margin-block-start: 0.5rem;
 }

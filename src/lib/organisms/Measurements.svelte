@@ -41,15 +41,3 @@
 	</Card>
 {/if}
 
-<style>
-	form {
-		display: grid;
-		gap: 0.75rem;
-		grid-template-columns: 1fr 1fr;
-	}
-
-	button {
-		grid-column: 1 / -1;
-		justify-self: start;
-	}
-</style>

@@ -22,12 +22,3 @@
 	{/each}
 </ul>
 
-<style>
-	.page-header {
-		align-items: center;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-		justify-content: space-between;
-	}
-</style>

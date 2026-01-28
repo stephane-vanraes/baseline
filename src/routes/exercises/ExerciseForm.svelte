@@ -97,9 +97,3 @@
 	<FormActions {submitLabel} {cancelHref} />
 </form>
 
-<style>
-	form {
-		display: grid;
-		gap: 1rem;
-	}
-</style>

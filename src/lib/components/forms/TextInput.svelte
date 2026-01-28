@@ -17,28 +17,3 @@
 	<input {type} {name} bind:value />
 </label>
 
-<style>
-	label {
-		display: grid;
-		gap: 0.25rem;
-		color: var(--color-text);
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-	}
-
-	span {
-		font-weight: 600;
-	}
-
-	input {
-		padding: 0.5rem 0.875rem;
-		border-radius: 0.875rem;
-		border: 1px solid var(--color-accent-soft);
-		background: var(--color-surface);
-		color: var(--color-text);
-		text-transform: none;
-		letter-spacing: normal;
-		max-inline-size: 100%;
-	}
-</style>

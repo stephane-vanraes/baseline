@@ -84,17 +84,3 @@
 	</div>
 </Card>
 
-<style>
-	.actions {
-		align-items: center;
-		justify-items: center;
-		display: grid;
-		gap: 0.75rem;
-		margin-inline: auto;
-		inline-size: max-content;
-		> button {
-			inline-size: 100%;
-			max-inline-size: unset;
-		}
-	}
-</style>

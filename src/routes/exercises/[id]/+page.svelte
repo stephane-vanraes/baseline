@@ -16,12 +16,3 @@
 <ExerciseSummaryCard exercise={data.exercise} latestEntry={data.entries[0]} />
 <ExerciseHistoryList entries={data.entries} type={data.exercise.type} />
 
-<style>
-	.page-header {
-		align-items: center;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-		justify-content: space-between;
-	}
-</style>

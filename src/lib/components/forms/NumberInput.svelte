@@ -24,39 +24,3 @@
 	</div>
 </label>
 
-<style>
-	label {
-		display: grid;
-		gap: 0.25rem;
-		color: var(--color-text);
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-	}
-
-	span {
-		align-items: center;
-		display: inline-flex;
-		gap: 0.35rem;
-		opacity: 0.7;
-	}
-
-	.field {
-		align-items: center;
-		display: grid;
-		gap: 0.5rem;
-		grid-template-columns: minmax(0, 1fr) auto;
-	}
-
-	input {
-		background: var(--color-background);
-		border-radius: 0.5rem;
-		border: 1px solid var(--color-accent-soft);
-		color: var(--color-text);
-		inline-size: 100%;
-		letter-spacing: normal;
-		max-inline-size: 100%;
-		padding: 0.5rem 0.875rem;
-		text-transform: none;
-	}
-</style>

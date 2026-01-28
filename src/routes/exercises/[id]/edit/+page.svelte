@@ -54,8 +54,3 @@
 	<button class="button danger" type="button" onclick={handleDelete}>Delete exercise</button>
 </div>
 
-<style>
-	.danger-zone {
-		margin-top: 1rem;
-	}
-</style>

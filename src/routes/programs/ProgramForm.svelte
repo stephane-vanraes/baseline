@@ -110,14 +110,3 @@
 	<FormActions {submitLabel} {cancelHref} />
 </form>
 
-<style>
-	form {
-		display: grid;
-		gap: 1rem;
-	}
-
-	p {
-		margin: 0;
-		opacity: 0.7;
-	}
-</style>

@@ -69,12 +69,3 @@
 	<button type="submit">Save</button>
 </form>
 
-<style>
-	form {
-		display: grid;
-		gap: 1rem;
-	}
-	button {
-		justify-self: end;
-	}
-</style>

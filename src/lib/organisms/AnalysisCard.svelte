@@ -111,36 +111,3 @@
 	</Card>
 {/if}
 
-<style>
-	.summary {
-		align-items: end;
-		display: grid;
-		gap: 0.5rem;
-		grid-template-columns: 1fr 1fr;
-
-		> strong,
-		> p {
-			grid-column: 1 / -1;
-		}
-
-		> div {
-			display: grid;
-			gap: 0.25rem;
-
-			> span {
-				font-size: 0.7rem;
-				text-transform: uppercase;
-				letter-spacing: 0.08em;
-				opacity: 0.7;
-			}
-		}
-
-		p {
-			padding-block-end: 1rem;
-		}
-
-		button {
-			justify-self: end;
-		}
-	}
-</style>

@@ -74,21 +74,3 @@
 	</div>
 </form>
 
-<style>
-	form {
-		display: grid;
-		gap: 0.5rem;
-	}
-
-	.inputs {
-		display: grid;
-		gap: 0.5rem;
-		grid-template-columns: 1fr 1fr;
-	}
-
-	.actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-	}
-</style>

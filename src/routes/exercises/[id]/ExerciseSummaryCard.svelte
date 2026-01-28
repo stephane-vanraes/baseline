@@ -69,38 +69,3 @@
 	</div>
 </Card>
 
-<style>
-	.stats {
-		align-items: end;
-		display: grid;
-		gap: 1rem;
-		grid-template-columns: 1fr max-content;
-		inline-size: 100%;
-
-		> div,
-		form {
-			display: grid;
-			gap: 0.25rem;
-			grid-column: 1 / 2;
-		}
-
-		button {
-			grid-column: 2 / 3;
-		}
-	}
-
-	span {
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		opacity: 0.7;
-	}
-
-	.update {
-		align-items: end;
-		display: grid;
-		gap: 0.75rem;
-		grid-template-columns: 1fr auto;
-		inline-size: 100%;
-	}
-</style>

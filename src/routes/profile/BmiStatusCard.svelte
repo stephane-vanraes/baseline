@@ -31,38 +31,3 @@
 	<span class={`badge ${bmiStatus.tone}`}>{bmiStatus.label}</span>
 </Card>
 
-<style>
-	span {
-		font-size: 0.7rem;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		opacity: 0.7;
-	}
-
-	strong {
-		font-size: 1rem;
-		font-weight: 600;
-	}
-
-	.badge {
-		padding: 0.25rem 0.6rem;
-		border-radius: 999px;
-		font-size: 0.7rem;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		border: 1px solid var(--color-accent);
-		color: var(--color-text);
-		background: var(--color-accent-soft);
-		opacity: 1;
-	}
-
-	.badge.warning {
-		border-color: var(--color-warning-border);
-		background: var(--color-warning);
-	}
-
-	.badge.danger {
-		border-color: var(--color-danger-border);
-		background: var(--color-danger);
-	}
-</style>
