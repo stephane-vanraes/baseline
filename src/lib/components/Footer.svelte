@@ -2,12 +2,23 @@
 	import { invalidateAll } from '$app/navigation';
 	import { dev } from '$app/environment';
 	import { clearDatabase, exportDatabase, importDatabase, seedDatabase } from '$lib/db';
-	import { addToast } from '$lib/components/Toast/toastList.svelte';
+	import { showToast } from '$lib/components/Toast/toastMessages';
 
 	const clear = () => clearDatabase().then(invalidateAll);
 	const seed = () => seedDatabase().then(invalidateAll);
 
 	let fileInput: HTMLInputElement | null = $state(null);
+
+	const attachFileInput = (node: HTMLInputElement) => {
+		fileInput = node;
+		return {
+			destroy() {
+				if (fileInput === node) {
+					fileInput = null;
+				}
+			}
+		};
+	};
 
 	async function exportData() {
 		const payload = await exportDatabase();
@@ -19,11 +30,7 @@
 		link.download = `baseline-export-${new Date().toISOString().slice(0, 10)}.json`;
 		link.click();
 		URL.revokeObjectURL(url);
-		addToast({
-			title: 'Export ready',
-			body: 'Your data export has downloaded.',
-			type: 'success'
-		});
+		showToast('exportReady');
 	}
 
 	function startImport() {
@@ -39,11 +46,7 @@
 		await importDatabase(payload);
 		await invalidateAll();
 		input.value = '';
-		addToast({
-			title: 'Import complete',
-			body: 'Your data has been restored.',
-			type: 'success'
-		});
+		showToast('importComplete');
 	}
 </script>
 
@@ -51,7 +54,7 @@
 	<button type="button" onclick={exportData}>Export</button>
 	<button type="button" onclick={startImport}>Import</button>
 	<input
-		bind:this={fileInput}
+		{@attach attachFileInput}
 		type="file"
 		accept="application/json"
 		onchange={handleImport}

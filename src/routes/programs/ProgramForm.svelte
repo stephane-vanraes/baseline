@@ -3,6 +3,7 @@
 	import TextInput from '$lib/components/forms/TextInput.svelte';
 	import TextareaInput from '$lib/components/forms/TextareaInput.svelte';
 	import ExerciseCard from '$lib/components/ExerciseCard.svelte';
+	import FormActions from '$lib/components/forms/FormActions.svelte';
 	import { getProgramExercises } from '$lib/utils/programs';
 	import { onMount } from 'svelte';
 
@@ -46,10 +47,12 @@
 		selected = selectedExercises;
 	});
 
+	const normalizedQuery = $derived(query.trim().toLowerCase());
+	const selectedIds = $derived(new Set(selected.map((exercise) => exercise.id)));
 	const available = $derived(
 		exercises
-			.filter((exercise) => !selected.some((picked) => picked.id === exercise.id))
-			.filter((exercise) => exercise.name.toLowerCase().includes(query.trim().toLowerCase()))
+			.filter((exercise) => !selectedIds.has(exercise.id))
+			.filter((exercise) => exercise.name.toLowerCase().includes(normalizedQuery))
 	);
 
 	function addExercise(exercise: Exercise) {
@@ -104,10 +107,7 @@
 		{/each}
 	</ul>
 	<hr />
-	<div class="buttons">
-		<button class="button" type="submit">{submitLabel}</button>
-		<a href={cancelHref} class="button danger">Cancel</a>
-	</div>
+	<FormActions {submitLabel} {cancelHref} />
 </form>
 
 <style>

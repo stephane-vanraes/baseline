@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import type { ResolvedPathname } from '$app/types';
-	import { onMount } from 'svelte';
 
 	const props = $props<{
 		action?: string;
@@ -9,18 +8,9 @@
 		href?: ResolvedPathname;
 		title: string;
 		onAction?: () => void;
-		timeout?: number;
 	}>();
 
 	let hidden = $state(false);
-
-	onMount(() => {
-		if (props.timeout) {
-			setTimeout(() => {
-				hidden = true;
-			}, props.timeout);
-		}
-	});
 </script>
 
 <div class:hidden>

@@ -8,7 +8,7 @@
 	import SelectInput from '$lib/components/forms/SelectInput.svelte';
 	import TextInput from '$lib/components/forms/TextInput.svelte';
 	import { updateProfile } from '$lib/db';
-	import { addToast } from '$lib/components/Toast/toastList.svelte';
+	import { showToast } from '$lib/components/Toast/toastMessages';
 
 	const { data } = $props();
 
@@ -33,11 +33,7 @@
 				: asFloat('currentWeight')
 		});
 
-		addToast({
-			title: data.profile ? 'Profile updated' : 'Profile created',
-			body: data.profile ? 'Your changes have been saved.' : 'Your profile is ready to use.',
-			type: 'success'
-		});
+		showToast(data.profile ? 'profileUpdated' : 'profileCreated');
 		goto(resolve('/profile'));
 	};
 </script>

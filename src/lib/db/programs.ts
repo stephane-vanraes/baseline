@@ -1,5 +1,6 @@
 import type * as DB from './types';
 import { db } from './client';
+import { withCreatedAt, withUpdatedAt } from './helpers';
 import type { Inserter, ProgramUpdater } from './helpers';
 import { getExercise } from './exercises';
 
@@ -20,19 +21,11 @@ export async function getExercisesForProgram(id: string) {
 }
 
 export function addProgram(program: Inserter<DB.Program>) {
-	return db.programs.add({
-		...program,
-		id: crypto.randomUUID(),
-		createdAt: Date.now(),
-		updatedAt: Date.now()
-	});
+	return db.programs.add(withCreatedAt<DB.Program>(program));
 }
 
 export function updateProgram(id: string, program: ProgramUpdater) {
 	return db.programs
-		.update(id, {
-			...program,
-			updatedAt: Date.now()
-		})
+		.update(id, withUpdatedAt(program))
 		.then(Boolean);
 }

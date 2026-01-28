@@ -5,7 +5,9 @@
 	import TextareaInput from '$lib/components/forms/TextareaInput.svelte';
 	import SelectInput from '$lib/components/forms/SelectInput.svelte';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
+	import FormActions from '$lib/components/forms/FormActions.svelte';
 	import { getSuffix } from '$lib/utils/exercise';
+	import { EXERCISE_TYPE_OPTIONS } from '$lib/constants/exercise';
 
 	type ExerciseFormValues = {
 		name: string;
@@ -36,12 +38,6 @@
 		showCurrentValue = false,
 		onSubmit
 	}: Props = $props();
-
-	const typeOptions: { value: ExerciseType; label: string }[] = [
-		{ value: 'weight', label: 'Weight' },
-		{ value: 'time', label: 'Time' },
-		{ value: 'distance', label: 'Distance' }
-	];
 
 	let selectedType = $state<ExerciseType>('weight');
 	const unit = $derived(getSuffix(selectedType));
@@ -87,7 +83,7 @@
 	<TextInput label="Name" name="name" value={initialExercise?.name ?? ''} />
 	<TextareaInput label="Description" name="description" value={initialExercise?.description ?? ''} />
 	<TextInput label="Link" name="link" type="url" value={initialExercise?.link ?? ''} />
-	<SelectInput label="Type" name="type" options={typeOptions} bind:value={selectedType} />
+	<SelectInput label="Type" name="type" options={EXERCISE_TYPE_OPTIONS} bind:value={selectedType} />
 	<NumberInput label="Initial value" name="initialValue" value={initialExercise?.initialValue ?? 30} {unit} />
 	<NumberInput label="Increment" name="increment" value={initialExercise?.increment ?? 1} {unit} />
 	{#if showCurrentValue}
@@ -98,21 +94,12 @@
 			{unit}
 		/>
 	{/if}
-	<div class="buttons">
-		<button class="button" type="submit">{submitLabel}</button>
-		<a href={cancelHref} class="button danger">Cancel</a>
-	</div>
+	<FormActions {submitLabel} {cancelHref} />
 </form>
 
 <style>
 	form {
 		display: grid;
 		gap: 1rem;
-	}
-
-	.buttons {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
 	}
 </style>

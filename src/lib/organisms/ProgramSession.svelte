@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { addExerciseEntry, getExercisesForProgram } from '$lib/db';
 	import type { Exercise, ExerciseEntry, Program } from '$lib/db/types';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';

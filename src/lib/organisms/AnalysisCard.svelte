@@ -4,35 +4,23 @@
 	import { type Analysis } from '$lib/utils/analysis';
 	import { formatExercise, getSuffix } from '$lib/utils/exercise';
 	import { updateExercise } from '$lib/db';
-	import { invalidateAll } from '$app/navigation';
-	import { addToast } from '$lib/components/Toast/toastList.svelte';
+	import { invalidate } from '$app/navigation';
+	import { showToast } from '$lib/components/Toast/toastMessages';
 
 	const { entry, exercise, suggestions, history }: Analysis = $props();
 
-	let increaseValue = $state(suggestions.increase ?? 0);
-	let decreaseValue = $state(suggestions.decrease ?? 0);
-
-	$effect(() => {
-		if (suggestions.increase !== undefined) {
-			increaseValue = suggestions.increase;
-		}
-	});
-
-	$effect(() => {
-		if (suggestions.decrease !== undefined) {
-			decreaseValue = suggestions.decrease;
-		}
-	});
+	let increaseValue = $derived(suggestions.increase ?? 0);
+	let decreaseValue = $derived(suggestions.decrease ?? 0);
 
 	async function applyValue(value: number | undefined) {
 		if (!exercise.id || value === undefined) return;
 		await updateExercise(exercise.id, { currentValue: value });
-		await invalidateAll();
-		addToast({
-			title: 'Value updated',
-			body: 'Current value adjusted based on your session.',
-			type: 'success'
-		});
+		await Promise.all([
+			invalidate('app:exercise-entries'),
+			invalidate(`app:exercise-entries:${exercise.id}`),
+			invalidate(`app:exercise:${exercise.id}`)
+		]);
+		showToast('analysisValueUpdated');
 	}
 </script>
 

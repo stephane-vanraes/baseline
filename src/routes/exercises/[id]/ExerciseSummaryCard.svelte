@@ -5,8 +5,8 @@
 	import { formatExercise, getSuffix } from '$lib/utils/exercise';
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import { formatDateYMD } from '$lib/utils/date';
-	import { invalidateAll } from '$app/navigation';
-	import { addToast } from '$lib/components/Toast/toastList.svelte';
+	import { invalidate } from '$app/navigation';
+	import { showToast } from '$lib/components/Toast/toastMessages';
 
 	type Props = {
 		exercise: Exercise;
@@ -23,22 +23,22 @@
 		const rawValue = data.get('currentValue');
 		const currentValue = Number(rawValue ?? exercise.currentValue);
 		await updateExercise(exercise.id, { currentValue });
-		addToast({
-			title: 'Current value updated',
-			body: 'Your exercise value has been saved.',
-			type: 'success'
-		});
-		invalidateAll();
+		showToast('exerciseValueUpdated');
+		await Promise.all([
+			invalidate('app:exercise-entries'),
+			invalidate(`app:exercise-entries:${exercise.id}`),
+			invalidate(`app:exercise:${exercise.id}`)
+		]);
 	}
 
 	async function changeToLatest() {
 		await updateExercise(exercise.id, { currentValue: latestEntry?.value });
-		addToast({
-			title: 'Current value updated',
-			body: 'Switched to the latest entry value.',
-			type: 'success'
-		});
-		invalidateAll();
+		showToast('exerciseValueSetLatest');
+		await Promise.all([
+			invalidate('app:exercise-entries'),
+			invalidate(`app:exercise-entries:${exercise.id}`),
+			invalidate(`app:exercise:${exercise.id}`)
+		]);
 	}
 </script>
 

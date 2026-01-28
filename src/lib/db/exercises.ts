@@ -1,6 +1,7 @@
 import { Dexie } from 'dexie';
 import type * as DB from './types';
 import { db } from './client';
+import { withCreatedAt, withUpdatedAt } from './helpers';
 import type { ExerciseUpdater, Inserter } from './helpers';
 
 export function allExercises(includeDeleted?: boolean) {
@@ -17,20 +18,12 @@ export function getExercise(id: string) {
 }
 
 export function addExercise(exercise: Inserter<DB.Exercise>) {
-	return db.exercises.add({
-		...exercise,
-		id: crypto.randomUUID(),
-		createdAt: Date.now(),
-		updatedAt: Date.now()
-	});
+	return db.exercises.add(withCreatedAt<DB.Exercise>(exercise));
 }
 
 export function updateExercise(id: string, exercise: ExerciseUpdater) {
 	return db.exercises
-		.update(id, {
-			...exercise,
-			updatedAt: Date.now()
-		})
+		.update(id, withUpdatedAt(exercise))
 		.then(Boolean);
 }
 
@@ -56,9 +49,6 @@ export async function addExerciseEntry(entry: Inserter<DB.ExerciseEntry>) {
 	if (!ex?.id) throw 'Exercise not found';
 
 	await db.exerciseEntries.add({
-		id: crypto.randomUUID(),
-		createdAt: Date.now(),
-		updatedAt: Date.now(),
-		...entry
+		...withCreatedAt<DB.ExerciseEntry>(entry)
 	});
 }

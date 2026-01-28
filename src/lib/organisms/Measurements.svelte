@@ -5,7 +5,7 @@
 	import NumberInput from '$lib/components/forms/NumberInput.svelte';
 	import { addBodyStatEntry } from '$lib/db';
 	import type { Profile } from '$lib/db/types';
-	import { addToast } from '$lib/components/Toast/toastList.svelte';
+	import { showToast } from '$lib/components/Toast/toastMessages';
 
 	type Props = {
 		hasMeasurements: boolean;
@@ -25,11 +25,7 @@
 
 		await addBodyStatEntry({ weight, waist });
 		invalidate('app:bodystats');
-		addToast({
-			title: 'Measurements added',
-			body: 'Your daily measurements have been logged.',
-			type: 'success'
-		});
+		showToast('measurementsAdded');
 	}
 </script>
 
